@@ -6,7 +6,17 @@ import getters from "./getters";
 
 const store = createStore({
   state() {
-    return {};
+    return {
+      canvas: null,
+      count: 0,
+      clicked: {
+        url: "",
+        type: "",
+      },
+      transitions: [],
+      places: [],
+      arcs: [],
+    };
   },
   actions,
   mutations,

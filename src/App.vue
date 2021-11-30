@@ -1,26 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <action-panel></action-panel>
+  <my-canvas></my-canvas>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import MyCanvas from "@/components/MyCanvas";
+import ActionPanel from "@/components/ActionPanel";
 export default {
-  name: "App",
   components: {
-    HelloWorld,
+    MyCanvas,
+    ActionPanel,
+  },
+  data() {
+    return {};
   },
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style scoped></style>
