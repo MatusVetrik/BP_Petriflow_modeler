@@ -10,15 +10,14 @@
       alt="Place"
       @click="chooseAction(place.url, 'place')"
     />
-    <img :src="addTokens.src" alt="Add Token" @click="chooseAction(null)" />
+    <img
+      :src="addTokens.src"
+      alt="Add Token"
+      @click="chooseAction(addTokens.url, 'addTokens')"
+    />
     <img
       :src="removeTokens.src"
       alt="Remove Token"
-      @click="chooseAction(null)"
-    />
-    <img
-      :src="changeMarking.src"
-      alt="Change Marking"
       @click="chooseAction(null)"
     />
     <img
@@ -26,9 +25,23 @@
       alt="Change Label"
       @click="chooseAction(null)"
     />
-    <img :src="arc.src" alt="Arc" @click="chooseAction(arc.url, 'arc')" />
-    <img :src="arcWeight.src" alt="Arc Weight" @click="chooseAction(null)" />
-    <img :src="deleteNode.src" alt="Delete Node" @click="chooseAction(null)" />
+    <img
+      :src="arc.src"
+      alt="Arc"
+      class="arc"
+      @click="chooseAction(arc.url, 'arc')"
+    />
+    <img
+      :src="arcWeight.src"
+      alt="Arc Weight"
+      class="arc"
+      @click="chooseAction(null)"
+    />
+    <img
+      :src="deleteNode.src"
+      alt="Delete Node"
+      @click="chooseAction(deleteNode.url, 'delete')"
+    />
     <img :src="save.src" alt="Save" @click="chooseAction(null)" />
     <img
       :src="startSimulation.src"
@@ -57,10 +70,6 @@ export default {
       removeTokens: {
         src: require("../assets/icons/removetokens.svg"),
         url: "../assets/icons/removetokens.svg",
-      },
-      changeMarking: {
-        src: require("../assets/icons/marking.svg"),
-        url: "../assets/icons/marking.svg",
       },
       changeLabel: {
         src: require("../assets/icons/label.svg"),
@@ -111,24 +120,25 @@ export default {
 
 <style scoped>
 img {
-  width: 2rem;
+  width: 1.7rem;
   border: solid 2px black;
   padding: 0.5rem;
-  margin: 0.5rem;
-  transition: 0.2s;
-  background-color: rgba(240, 240, 240, 0.4);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.108);
+  margin: 0.4rem;
+  border-radius: 1rem;
+  transition: 0.3s;
+  background-color: rgb(237, 237, 237);
 }
 
 img:hover {
-  transform: scale(1.05);
-  background-color: rgba(220, 220, 220, 0.4);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.313);
+  transform: scale(1.15);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 #topBar {
-  margin-left: 0.5rem;
+  margin: 0.25rem;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 </style>

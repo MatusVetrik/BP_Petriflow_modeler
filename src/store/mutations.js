@@ -1,13 +1,17 @@
 export default {
-  setCanvas(state, payload) {
-    state.canvas = payload;
+  setStage(state, payload) {
+    state.stage = payload;
   },
   clickOnPanel(state, payload) {
     state.clicked = {
       url: payload.url,
       type: payload.type,
     };
-    console.log(state.clicked);
+  },
+  drawSVG(state, payload) {
+    state.canvas.add(payload);
+    state.canvas.renderAll();
+    console.log(state.canvas.getObjects());
   },
   pushTransition(state, payload) {
     state.count++;
@@ -20,7 +24,6 @@ export default {
       },
       label: "Transition",
     });
-    console.log(state.transitions);
   },
   pushPlace(state, payload) {
     state.count++;
@@ -32,7 +35,6 @@ export default {
       tokens: 0,
       static: false,
     });
-    console.log(state.places);
   },
   pushArc(state, payload) {
     state.count++;
@@ -43,6 +45,8 @@ export default {
       destinationId: payload.event.clientY,
       multiplicity: 0,
     });
-    console.log(state.arcs);
+  },
+  deleteObject(state, payload) {
+    console.log(state, payload);
   },
 };

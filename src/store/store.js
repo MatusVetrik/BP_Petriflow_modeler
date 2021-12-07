@@ -7,7 +7,8 @@ import getters from "./getters";
 const store = createStore({
   state() {
     return {
-      canvas: null,
+      stage: null,
+      layer: null,
       count: 0,
       clicked: {
         url: "",

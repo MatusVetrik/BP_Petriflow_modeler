@@ -1,58 +1,105 @@
 <template>
-  <canvas
-    width="10000"
-    height="10000"
-    ref="myCanvas"
-    @click="clickOnCanvas"
-  ></canvas>
+  <div ref="container" class="wrapper" @mousedown="clickOnCanvas"></div>
 </template>
 
 <script>
+import Konva from "konva";
 export default {
   data() {
-    return {};
+    return {
+      stage: null,
+      layer: null,
+      mouseDownXY: {
+        x: 0,
+        y: 0,
+      },
+    };
   },
-  created() {
-    this.$store.dispatch("setCanvas", this.$refs.myCanvas);
+  mounted() {
+    this.stage = new Konva.Stage({
+      container: this.$refs.container,
+      width: 1300,
+      height: 900,
+    });
+    this.layer = new Konva.Layer();
+    this.stage.add(this.layer);
   },
   methods: {
     clickOnCanvas(event) {
       if (this.$store.state.clicked.type === "transition") {
-        this.$store.dispatch("drawSVG", {
-          event: event,
-          canvas: this.$refs.myCanvas,
-        });
         this.$store.dispatch("drawTransition", {
           event: event,
-          canvas: this.$refs.myCanvas,
+          stage: this.stage,
+          layer: this.layer,
         });
+        console.log(this.stage);
+        console.log(this.layer);
       }
       if (this.$store.state.clicked.type === "place") {
-        this.$store.dispatch("drawSVG", {
-          event: event,
-          canvas: this.$refs.myCanvas,
-        });
         this.$store.dispatch("drawPlace", {
           event: event,
-          canvas: this.$refs.myCanvas,
+          stage: this.stage,
+          layer: this.layer,
         });
       }
       if (this.$store.state.clicked.type === "arc") {
-        this.$store.dispatch("drawArc", {
+        this.beginArc = !this.beginArc;
+        this.drawLine();
+        this.$store.dispatch("drawSVG", {
           event: event,
-          canvas: this.$refs.myCanvas,
+          stage: this.stage,
+          layer: this.layer,
+          begin: this.beginArc,
         });
       }
+      if (this.$store.state.clicked.type === "delete") {
+        this.$store.dispatch("deleteObject", {
+          event: event,
+          stage: this.stage,
+          layer: this.layer,
+        });
+      }
+      if (this.$store.state.clicked.type === "addTokens") {
+        this.$store.dispatch("addTokens", {
+          event: event,
+          stage: this.stage,
+          layer: this.layer,
+        });
+      }
+    },
+    drawLine() {
+      let arrow;
+      this.stage.on("mousedown", () => {
+        const pos = this.stage.getPointerPosition();
+        arrow = new Konva.Arrow({
+          points: [pos.x, pos.y],
+          stroke: "black",
+          fill: "black",
+        });
+        this.layer.add(arrow);
+        this.layer.batchDraw();
+      });
+      this.stage.on("mousemove", () => {
+        if (arrow) {
+          const pos = this.stage.getPointerPosition();
+          const points = [arrow.points()[0], arrow.points()[1], pos.x, pos.y];
+          arrow.points(points);
+          this.layer.batchDraw();
+        }
+      });
+      this.stage.on("mouseup", () => {
+        arrow = null;
+      });
     },
   },
 };
 </script>
 
-<style scoped>
-canvas {
+<style>
+.wrapper {
   position: absolute;
-  top: 4.5rem;
+  top: 0;
   left: 0;
-  z-index: 4;
+  z-index: -1;
 }
 </style>
