@@ -8,12 +8,10 @@ export default {
     context.commit("clickOnPanel", payload);
   },
   drawTransition(context, payload) {
-    addTransition(payload);
-    context.commit("pushTransition", payload);
+    addTransition(context, payload);
   },
   drawPlace(context, payload) {
-    addPlace(payload);
-    context.commit("pushPlace", payload);
+    addPlace(context, payload);
   },
   drawArc(context, payload) {
     // addArc(payload);
@@ -32,20 +30,23 @@ export default {
   },
 };
 
-const addPlace = (payload) => {
+const addPlace = (context, payload) => {
   const place = new Konva.Circle({
     x: payload.event.clientX,
     y: payload.event.clientY,
     radius: 20,
-    fill: null,
+    fill: "white",
     stroke: "black",
     strokeWidth: 3,
     draggable: false,
   });
-  addLabel(payload, place, 1, -10, -14);
+  // addLabel(context, payload, place, 1, -8, 18);
+  payload.layer.add(place);
+  // place.zIndex(1);
+  context.commit("pushPlace", { payload: payload, id: place._id });
 };
 
-const addTransition = (payload) => {
+const addTransition = (context, payload) => {
   const transition = new Konva.Rect({
     x: payload.event.clientX - 20,
     y: payload.event.clientY - 20,
@@ -54,12 +55,14 @@ const addTransition = (payload) => {
     fill: null,
     stroke: "black",
     strokeWidth: 3,
-    draggable: true,
   });
-  addLabel(payload, transition, "Transtition", -40, 20);
+  payload.layer.add(transition);
+  // transition.zIndex(1);
+  addLabel(context, payload, transition, "Transtition", -40, 20);
+  context.commit("pushTransition", { payload: payload, id: transition._id });
 };
 
-const addLabel = (payload, object, innerText, offsetX, offsetY) => {
+const addLabel = (context, payload, object, innerText, offsetX, offsetY) => {
   const label = new Konva.Label({
     x: payload.event.clientX + offsetX,
     y: payload.event.clientY + offsetY,
@@ -72,13 +75,8 @@ const addLabel = (payload, object, innerText, offsetX, offsetY) => {
       fontSize: 18,
       padding: 5,
       fill: "black",
+      objectId: context.state.count + "",
     })
   );
-  payload.layer.add(object).add(label);
+  payload.layer.add(label);
 };
-
-// const addArc = (payload) => {
-//   let stage = payload.stage;
-//   let layer = payload.layer;
-//   let
-// };

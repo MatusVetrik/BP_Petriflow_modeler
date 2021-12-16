@@ -9,7 +9,6 @@ const store = createStore({
     return {
       stage: null,
       layer: null,
-      count: 0,
       clicked: {
         url: "",
         type: "",

@@ -125,7 +125,7 @@ img {
   padding: 0.5rem;
   margin: 0.4rem;
   border-radius: 1rem;
-  transition: 0.3s;
+  transition: 0.2s;
   background-color: rgb(237, 237, 237);
 }
 

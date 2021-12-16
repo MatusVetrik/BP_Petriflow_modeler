@@ -8,17 +8,11 @@ export default {
       type: payload.type,
     };
   },
-  drawSVG(state, payload) {
-    state.canvas.add(payload);
-    state.canvas.renderAll();
-    console.log(state.canvas.getObjects());
-  },
   pushTransition(state, payload) {
-    state.count++;
     state.transitions.push({
-      id: state.count,
-      x: payload.event.clientX,
-      y: payload.event.clientY,
+      id: payload.id,
+      x: payload.payload.event.clientX,
+      y: payload.payload.event.clientY,
       layout: {
         offset: 0,
       },
@@ -26,27 +20,30 @@ export default {
     });
   },
   pushPlace(state, payload) {
-    state.count++;
     state.places.push({
-      id: state.count,
-      x: payload.event.clientX,
-      y: payload.event.clientY,
+      id: payload.id,
+      x: payload.payload.event.clientX,
+      y: payload.payload.event.clientY,
       label: "Place",
       tokens: 0,
       static: false,
     });
+    console.log(state.places);
   },
   pushArc(state, payload) {
-    state.count++;
     state.arcs.push({
-      id: state.count,
+      id: payload.id,
       type: "regular",
-      sourceId: payload.event.clientX,
-      destinationId: payload.event.clientY,
+      sourceId: payload.start,
+      destinationId: payload.end,
       multiplicity: 0,
     });
+    console.log(state.arcs);
   },
   deleteObject(state, payload) {
     console.log(state, payload);
   },
+  // addTokens(state,payload){
+  //   state.
+  // }
 };
