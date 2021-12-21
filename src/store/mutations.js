@@ -16,7 +16,8 @@ export default {
       layout: {
         offset: 0,
       },
-      label: "Transition",
+      label: "",
+      labelId: payload.label,
     });
   },
   pushPlace(state, payload) {
@@ -26,9 +27,9 @@ export default {
       y: payload.payload.event.clientY,
       label: "Place",
       tokens: 0,
+      tokenLabel: payload.label,
       static: false,
     });
-    console.log(state.places);
   },
   pushArc(state, payload) {
     state.arcs.push({
@@ -36,12 +37,12 @@ export default {
       type: "regular",
       sourceId: payload.start,
       destinationId: payload.end,
-      multiplicity: 0,
+      multiplicity: 1,
+      labelId: payload.labelId,
     });
-    console.log(state.arcs);
   },
   deleteObject(state, payload) {
-    console.log(state, payload);
+    state, payload;
   },
   // addTokens(state,payload){
   //   state.

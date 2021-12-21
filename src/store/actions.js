@@ -13,20 +13,28 @@ export default {
   drawPlace(context, payload) {
     addPlace(context, payload);
   },
-  drawArc(context, payload) {
-    // addArc(payload);
-    context.commit("pushArc", payload);
+  addArc(context, payload) {
+    const labelX = (payload.endXY.x + payload.startXY.x) / 2;
+    const labelY = (payload.endXY.y + payload.startXY.y) / 2;
+    const label = addLabel(labelX, labelY, "", 0, 0);
+    payload.layer.add(label);
+    context.commit("pushArc", {
+      id: payload.id,
+      start: payload.start,
+      end: payload.end,
+      labelId: label._id,
+    });
   },
   deleteObject(context, payload) {
     // const ctx = payload.canvas.getContext("2d");
     context.commit("deleteObject", payload);
   },
   addTokens(context, payload) {
-    payload.layer.on("click", function (event) {
-      let object = event.target;
-      console.log("CLICK", object);
-    });
+    // payload.layer.on("click", function (event) {
+    //   let object = event.target;
+    // });
     // context.commit("addTokens", payload);
+    context, payload;
   },
 };
 
@@ -37,13 +45,24 @@ const addPlace = (context, payload) => {
     radius: 20,
     fill: "white",
     stroke: "black",
-    strokeWidth: 3,
+    strokeWidth: 2,
     draggable: false,
   });
-  // addLabel(context, payload, place, 1, -8, 18);
+  const label = addLabel(
+    payload.event.clientX,
+    payload.event.clientY,
+    "",
+    -19,
+    18
+  );
+  payload.layer.add(label);
   payload.layer.add(place);
-  // place.zIndex(1);
-  context.commit("pushPlace", { payload: payload, id: place._id });
+  addHoverEffect(place);
+  context.commit("pushPlace", {
+    payload: payload,
+    id: place._id,
+    label: label._id,
+  });
 };
 
 const addTransition = (context, payload) => {
@@ -54,18 +73,39 @@ const addTransition = (context, payload) => {
     height: 40,
     fill: null,
     stroke: "black",
-    strokeWidth: 3,
+    strokeWidth: 2,
   });
+  const label = addLabel(
+    payload.event.clientX,
+    payload.event.clientY,
+    "",
+    -50,
+    20,
+    100
+  );
+  payload.layer.add(label);
   payload.layer.add(transition);
-  // transition.zIndex(1);
-  addLabel(context, payload, transition, "Transtition", -40, 20);
-  context.commit("pushTransition", { payload: payload, id: transition._id });
+  addHoverEffect(transition);
+  context.commit("pushTransition", {
+    payload: payload,
+    id: transition._id,
+    label: label._id,
+  });
 };
 
-const addLabel = (context, payload, object, innerText, offsetX, offsetY) => {
+const addHoverEffect = (object) => {
+  object.on("mouseover touchstart", function () {
+    this.stroke("#00a2ec");
+  });
+  object.on("mouseout touchend", function () {
+    this.stroke("black");
+  });
+};
+
+const addLabel = (x, y, innerText, offsetX, offsetY, width = 40) => {
   const label = new Konva.Label({
-    x: payload.event.clientX + offsetX,
-    y: payload.event.clientY + offsetY,
+    x: x + offsetX,
+    y: y + offsetY,
     opacity: 1,
   });
   label.add(
@@ -74,9 +114,11 @@ const addLabel = (context, payload, object, innerText, offsetX, offsetY) => {
       fontFamily: "Calibri",
       fontSize: 18,
       padding: 5,
+      width: width,
       fill: "black",
-      objectId: context.state.count + "",
+      align: "center",
+      wrap: "word",
     })
   );
-  payload.layer.add(label);
+  return label;
 };

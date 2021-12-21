@@ -18,12 +18,12 @@
     <img
       :src="removeTokens.src"
       alt="Remove Token"
-      @click="chooseAction(null)"
+      @click="chooseAction(removeTokens.url, 'removeTokens')"
     />
     <img
       :src="changeLabel.src"
       alt="Change Label"
-      @click="chooseAction(null)"
+      @click="chooseAction(changeLabel.url, 'change')"
     />
     <img
       :src="arc.src"
@@ -35,7 +35,7 @@
       :src="arcWeight.src"
       alt="Arc Weight"
       class="arc"
-      @click="chooseAction(null)"
+      @click="chooseAction(arcWeight.url, 'arcWeight')"
     />
     <img
       :src="deleteNode.src"
