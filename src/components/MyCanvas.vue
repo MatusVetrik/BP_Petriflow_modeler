@@ -4,8 +4,12 @@
 
 <script>
 import Konva from "konva";
+// import ChangeLabel from "./ModelerFunctions/ChangeLabel.vue";
 
 export default {
+  // components: {
+  //   ChangeLabel,
+  // },
   data() {
     return {
       stage: null,
@@ -23,12 +27,14 @@ export default {
     });
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
+    this.$store.state.layer = this.layer;
     this.stage.on("mousedown", (event) => {
       this.mouseDown(event);
       this.changeTokens(event);
       this.deleteObject(event);
       this.changeLabel(event);
       this.changeArcWeight(event);
+      this.simulationProcess(event);
     });
     this.stage.on("mousemove", this.mouseMove);
     this.stage.on("mouseup", (event) => this.mouseUp(event));
@@ -66,6 +72,96 @@ export default {
           layer: this.layer,
         });
       }
+    },
+    simulationProcess(event) {
+      if (this.simulationClicked() && event.target instanceof Konva.Rect) {
+        console.log("CALLLED");
+        const transitions = this.$store.state.transitions;
+        const places = this.$store.state.places;
+        const arcs = this.$store.state.arcs;
+        const target = transitions.find((el) => el.id === event.target._id);
+        const targetDestinantionBlank = arcs.find(
+          (el) => el.id === event.target._id
+        );
+        if (!targetDestinantionBlank) {
+          for (let i = 0; i < arcs.length; i++) {
+            if (arcs[i].sourceId === target.id) {
+              const sourcePlace = places.find(
+                (el) => el.id === arcs[i].destinationId
+              );
+              sourcePlace.tokens += arcs[i].multiplicity;
+              const labelForChange = this.layer.children.find(
+                (el) => el._id === sourcePlace.tokenLabel
+              );
+              labelForChange.getText().text(sourcePlace.tokens);
+            }
+          }
+        }
+        for (let i = 0; i < arcs.length; i++) {
+          if (arcs[i].destinationId === target.id) {
+            const sourcePlace = places.find((el) => el.id === arcs[i].sourceId);
+            if (sourcePlace.tokens > 0) {
+              sourcePlace.tokens -= arcs[i].multiplicity;
+              for (let j = 0; j < arcs.length; j++) {
+                if (arcs[j].sourceId === target.id) {
+                  for (let k = 0; k < places.length; k++) {
+                    if (arcs[j].destinationId === places[k].id) {
+                      places[k].tokens += arcs[j].multiplicity;
+                      const labelForChange = this.layer.children.find(
+                        (el) => el._id === places[k].tokenLabel
+                      );
+                      labelForChange.getText().text(places[k].tokens);
+                    }
+                  }
+                }
+              }
+              const labelForChange = this.layer.children.find(
+                (el) => el._id === sourcePlace.tokenLabel
+              );
+              if (sourcePlace.tokens === 0) {
+                labelForChange.getText().text("");
+                event.target.fill("white");
+              } else labelForChange.getText().text(sourcePlace.tokens);
+            }
+          }
+        }
+        this.simulationRound();
+      }
+    },
+    simulationRound() {
+      if (this.$store.state.layer) {
+        const transitions = this.$store.state.transitions;
+        const places = this.$store.state.places;
+        const arcs = this.$store.state.arcs;
+        for (let i = 0; i < transitions.length; i++) {
+          for (let j = 0; j < arcs.length; j++) {
+            if (arcs[j].sourceId === transitions[i].id) {
+              const destinationArcFound = arcs.find(
+                (el) => el.destinationId === transitions[i].id
+              );
+              if (!destinationArcFound) {
+                const object = this.$store.state.layer.children.find(
+                  (el) => el._id === transitions[i].id
+                );
+                object.fill("#22d481");
+              }
+            } else {
+              for (let k = 0; k < places.length; k++) {
+                if (arcs[j].sourceId === places[k].id && places[k].tokens > 0) {
+                  const object = this.$store.state.layer.children.find(
+                    (el) => el._id === arcs[j].destinationId
+                  );
+                  object.fill("#22d481");
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    simulationClicked() {
+      if (this.$store.state.clicked.type === "simulation") return true;
+      return false;
     },
     changeArcWeight(event) {
       if (this.changeArcWeightClicked()) {
@@ -116,9 +212,27 @@ export default {
           const places = this.$store.state.places.filter(
             (el) => el.id !== event.target._id
           );
+          const storedArcs = this.$store.state.arcs;
+          let arcs = [];
+          for (let i = 0; i < storedArcs.length; i++) {
+            console.log(storedArcs[i]);
+            if (
+              storedArcs[i].sourceId === event.target._id ||
+              storedArcs[i].destinationId === event.target._id
+            ) {
+              const arcToDestory = this.layer.children.find(
+                (el) => el._id === storedArcs[i].id
+              );
+              arcToDestory.destroy();
+            } else {
+              arcs.push(storedArcs[i]);
+            }
+          }
           this.$store.state.transitions = transitions;
           this.$store.state.places = places;
+          this.$store.state.arcs = arcs;
           object.destroy();
+          console.log(arcs);
         }
         this.layer.batchDraw();
       }

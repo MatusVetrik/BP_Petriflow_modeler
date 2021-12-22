@@ -46,7 +46,7 @@
     <img
       :src="startSimulation.src"
       alt="Start Simulation"
-      @click="chooseAction(null)"
+      @click="simulationProcess()"
     />
   </div>
 </template>
@@ -107,6 +107,41 @@ export default {
         url: action,
         type: type,
       });
+    },
+    simulationMode() {
+      this.$store.dispatch("startSimulation");
+    },
+    simulationProcess() {
+      if (this.$store.state.layer) {
+        const transitions = this.$store.state.transitions;
+        const places = this.$store.state.places;
+        const arcs = this.$store.state.arcs;
+        for (let i = 0; i < transitions.length; i++) {
+          for (let j = 0; j < arcs.length; j++) {
+            if (arcs[j].sourceId === transitions[i].id) {
+              const destinationArcFound = arcs.find(
+                (el) => el.destinationId === transitions[i].id
+              );
+              if (!destinationArcFound) {
+                const object = this.$store.state.layer.children.find(
+                  (el) => el._id === transitions[i].id
+                );
+                object.fill("#22d481");
+              }
+            } else {
+              for (let k = 0; k < places.length; k++) {
+                if (arcs[j].sourceId === places[k].id && places[k].tokens > 0) {
+                  const object = this.$store.state.layer.children.find(
+                    (el) => el._id === arcs[j].destinationId
+                  );
+                  object.fill("#22d481");
+                }
+              }
+            }
+          }
+        }
+        this.chooseAction(null, "simulation");
+      }
     },
     // drawArc(action, type) {
     //   this.$store.dispatch("drawArc", {
