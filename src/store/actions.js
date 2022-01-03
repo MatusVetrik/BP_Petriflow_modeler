@@ -16,7 +16,7 @@ export default {
   addArc(context, payload) {
     const labelX = (payload.endXY.x + payload.startXY.x) / 2;
     const labelY = (payload.endXY.y + payload.startXY.y) / 2;
-    const label = addLabel(labelX, labelY, "", 0, 0);
+    const label = addLabel(labelX - 10, labelY - 10, "", 0, 0);
     payload.layer.add(label);
     context.commit("pushArc", {
       id: payload.id,

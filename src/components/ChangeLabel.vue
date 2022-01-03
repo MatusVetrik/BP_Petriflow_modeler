@@ -1,6 +1,16 @@
+<template>
+  <img :src="changeLabelSrc.src" alt="Change Label" />
+</template>
+
 <script>
 export default {
-  emits: ["change-label"],
+  data() {
+    return {
+      changeLabelSrc: {
+        src: require("../assets/icons/label.svg"),
+      },
+    };
+  },
   methods: {
     changeLabel(event) {
       if (this.changeLabelClicked()) {
@@ -9,19 +19,22 @@ export default {
         if (trans) {
           const value = window.prompt("Add label to transition: ");
           trans.label = value;
-          s;
           const labelForChange = event.target.parent.children.find(
             (el) => el._id === trans.labelId
           );
           labelForChange.getText().text(trans.label);
         }
       }
-      this.$emit("changeLabel", event);
     },
     changeLabelClicked() {
       if (this.$store.state.clicked.type === "change") return 1;
       return 0;
     },
+  },
+  mounted() {
+    this.$store.state.stage.on("mousedown", (event) => {
+      this.changeLabel(event);
+    });
   },
 };
 </script>

@@ -12,6 +12,7 @@
     "eslint-plugin-vue": "^8.1.1",
     "fabric": "^4.6.0",
     "konva": "^8.3.0",
+    "mitt": "^3.0.0",
     "vue": "^3.0.0",
     "vue-konva": "^2.1.7",
     "vuex": "^4.0.2"

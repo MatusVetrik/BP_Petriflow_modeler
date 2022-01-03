@@ -1,8 +1,8 @@
 <template>
+  <my-canvas></my-canvas>
   <div id="panel">
     <action-panel></action-panel>
   </div>
-  <my-canvas></my-canvas>
 </template>
 
 <script>

@@ -3,115 +3,78 @@
     <img
       :src="transition.src"
       alt="Transtition"
-      @click="chooseAction(transition.url, 'transition')"
+      @click="chooseAction('transition')"
     />
-    <img
-      :src="place.src"
-      alt="Place"
-      @click="chooseAction(place.url, 'place')"
-    />
-    <img
-      :src="addTokens.src"
-      alt="Add Token"
-      @click="chooseAction(addTokens.url, 'addTokens')"
-    />
-    <img
-      :src="removeTokens.src"
-      alt="Remove Token"
-      @click="chooseAction(removeTokens.url, 'removeTokens')"
-    />
-    <img
-      :src="changeLabel.src"
-      alt="Change Label"
-      @click="chooseAction(changeLabel.url, 'change')"
-    />
-    <img
-      :src="arc.src"
-      alt="Arc"
-      class="arc"
-      @click="chooseAction(arc.url, 'arc')"
-    />
-    <img
-      :src="arcWeight.src"
-      alt="Arc Weight"
-      class="arc"
-      @click="chooseAction(arcWeight.url, 'arcWeight')"
-    />
-    <img
-      :src="deleteNode.src"
-      alt="Delete Node"
-      @click="chooseAction(deleteNode.url, 'delete')"
-    />
-    <img :src="save.src" alt="Save" @click="chooseAction(null)" />
-    <img
-      :src="startSimulation.src"
-      alt="Start Simulation"
-      @click="simulationProcess()"
-    />
+    <img :src="place.src" alt="Place" @click="chooseAction('place')" />
+    <change-tokens />
+    <change-label @click="chooseAction('change')" />
+    <draw-arc @click="chooseAction('arc')" />
+    <change-weight @click="chooseAction('arcWeight')" />
+    <delete-object @click="chooseAction('delete')" />
+    <save-net @click="chooseAction('save')" />
+    <start-simulation @click="simulationProcess()" />
   </div>
 </template>
 
 <script>
+import ChangeLabel from "./ChangeLabel.vue";
+import ChangeWeight from "./ChangeWeight.vue";
+import DeleteObject from "./DeleteObject.vue";
+import ChangeTokens from "./ChangeTokens.vue";
+import DrawArc from "./DrawArc.vue";
+import StartSimulation from "./StartSimulation.vue";
+import SaveNet from "./SaveNet.vue";
+
 export default {
+  components: {
+    ChangeLabel,
+    ChangeWeight,
+    DeleteObject,
+    ChangeTokens,
+    DrawArc,
+    StartSimulation,
+    SaveNet,
+  },
   data() {
     return {
       transition: {
         src: require("../assets/icons/transition.svg"),
-        url: "../assets/icons/transition.svg",
       },
       place: {
         src: require("../assets/icons/place.svg"),
-        url: "../assets/icons/place.svg",
-      },
-      addTokens: {
-        src: require("../assets/icons/addtokens.svg"),
-        url: "../assets/icons/addtokens.svg",
-      },
-      removeTokens: {
-        src: require("../assets/icons/removetokens.svg"),
-        url: "../assets/icons/removetokens.svg",
-      },
-      changeLabel: {
-        src: require("../assets/icons/label.svg"),
-        url: "../assets/icons/label.svg",
       },
       arc: {
         src: require("../assets/icons/arc.svg"),
-        url: "../assets/icons/arc.svg",
-      },
-      arcWeight: {
-        src: require("../assets/icons/arcweight.svg"),
-        url: "../assets/icons/arcweight.svg",
-      },
-      deleteNode: {
-        src: require("../assets/icons/delete.svg"),
-        url: "../assets/icons/delete.svg",
       },
       move: {
         src: require("../assets/icons/move.svg"),
-        url: "../assets/icons/move.svg",
-      },
-      startSimulation: {
-        src: require("../assets/icons/fire.svg"),
-        url: "../assets/icons/fire.svg",
       },
       save: {
         src: require("../assets/icons/save.svg"),
-        url: "../assets/icons/save.svg",
+      },
+      arcWeight: {
+        src: require("../assets/icons/arcweight.svg"),
+      },
+      deleteNode: {
+        src: require("../assets/icons/delete.svg"),
+      },
+      changeLabel: {
+        src: require("../assets/icons/label.svg"),
       },
     };
   },
   methods: {
-    chooseAction(action, type) {
+    chooseAction(type) {
       this.$store.dispatch("clickOnPanel", {
-        url: action,
         type: type,
       });
+      this.clearSimulationMode();
     },
     simulationMode() {
       this.$store.dispatch("startSimulation");
     },
     simulationProcess() {
+      this.chooseAction(null, "simulation");
       if (this.$store.state.layer) {
         const transitions = this.$store.state.transitions;
         const places = this.$store.state.places;
@@ -140,20 +103,23 @@ export default {
             }
           }
         }
-        this.chooseAction(null, "simulation");
       }
     },
-    // drawArc(action, type) {
-    //   this.$store.dispatch("drawArc", {
-    //     url: action,
-    //     type: type,
-    //   });
-    // },
+    clearSimulationMode() {
+      const transitions = this.$store.state.transitions;
+      if (transitions) {
+        for (let i = 0; i < transitions.length; i++) {
+          this.$store.state.layer.children
+            .find((el) => el._id === transitions[i].id)
+            .fill("white");
+        }
+      }
+    },
   },
 };
 </script>
 
-<style scoped>
+<style>
 img {
   width: 1.7rem;
   border: solid 2px black;
