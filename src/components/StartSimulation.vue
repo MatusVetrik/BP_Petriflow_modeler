@@ -45,7 +45,10 @@ export default {
               const sourcePlace = places.find(
                 (el) => el.id === arcs[i].sourceId
               );
-              if (sourcePlace.tokens > 0) {
+              if (
+                sourcePlace.tokens > 0 &&
+                sourcePlace.tokens >= arcs[i].multiplicity
+              ) {
                 sourcePlace.tokens -= arcs[i].multiplicity;
 
                 for (let j = 0; j < arcs.length; j++) {
@@ -100,7 +103,11 @@ export default {
               }
             } else {
               for (let k = 0; k < places.length; k++) {
-                if (arcs[j].sourceId === places[k].id && places[k].tokens > 0) {
+                if (
+                  arcs[j].sourceId === places[k].id &&
+                  places[k].tokens > 0 &&
+                  places[k].tokens >= arcs[j].multiplicity
+                ) {
                   const object = this.$store.state.layer.children.find(
                     (el) => el._id === arcs[j].destinationId
                   );

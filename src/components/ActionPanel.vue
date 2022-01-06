@@ -1,21 +1,45 @@
 <template>
   <div id="topBar">
-    <img
-      :src="transition.src"
-      alt="Transtition"
-      @click="chooseAction('transition')"
-    />
-    <img :src="place.src" alt="Place" @click="chooseAction('place')" />
+    <div class="tooltip">
+      <img
+        :src="transition.src"
+        alt="Transtition"
+        @click="chooseAction('transition')"
+      />
+      <div class="tooltiptext">Transtition</div>
+    </div>
+    <div class="tooltip">
+      <img :src="place.src" alt="Place" @click="chooseAction('place')" />
+      <div class="tooltiptext">Place</div>
+    </div>
     <change-tokens />
-    <change-label @click="chooseAction('change')" />
-    <draw-arc @click="chooseAction('arc')" />
-    <change-weight @click="chooseAction('arcWeight')" />
-    <delete-object @click="chooseAction('delete')" />
-    <save-net @click="chooseAction('save')" />
-    <start-simulation
-      @mousedown="chooseAction('simulation')"
-      @click="simulationProcess()"
-    />
+    <div class="tooltip">
+      <change-label @click="chooseAction('change')" />
+      <div class="tooltiptext">Label</div>
+    </div>
+    <div class="tooltip">
+      <draw-arc @click="chooseAction('arc')" />
+      <div class="tooltiptext">Arc</div>
+    </div>
+    <div class="tooltip">
+      <change-weight @click="chooseAction('arcWeight')" />
+      <div class="tooltiptext">Arc Weight</div>
+    </div>
+    <div class="tooltip">
+      <delete-object @click="chooseAction('delete')" />
+      <div class="tooltiptext">Delete</div>
+    </div>
+    <div class="tooltip">
+      <save-net @click="chooseAction('save')" />
+      <div class="tooltiptext">Save XML</div>
+    </div>
+    <div class="tooltip">
+      <start-simulation
+        @mousedown="chooseAction('simulation')"
+        @click="simulationProcess()"
+      />
+      <div class="tooltiptext">Simulation</div>
+    </div>
   </div>
 </template>
 
@@ -144,5 +168,36 @@ img:hover {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  opacity: 0;
+  color: #000;
+  text-align: center;
+  border-radius: 2rem;
+  padding: 5px;
+  font-size: 50%;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.432);
+  white-space: nowrap;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 2;
+  left: 170%;
+  top: 30%;
+  transition: 0.5s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 0.7;
+  transform: scale(2);
+  border-radius: 10px;
 }
 </style>

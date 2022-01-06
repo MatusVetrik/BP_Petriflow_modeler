@@ -18,12 +18,26 @@ export default {
           (el) => el._id === event.target._id
         );
         if (object) {
-          const transitions = this.$store.state.transitions.filter(
-            (el) => el.id !== event.target._id
+          let transObj = this.$store.state.transitions.find(
+            (el) => el.id === event.target._id
           );
-          const places = this.$store.state.places.filter(
-            (el) => el.id !== event.target._id
+          let placeObj = this.$store.state.places.find(
+            (el) => el.id === event.target._id
           );
+          if (transObj) {
+            const label = this.$store.state.layer.children.find(
+              (el) => el._id === transObj.labelId
+            );
+            label.visible(false);
+          } else if (placeObj) {
+            const label = this.$store.state.layer.children.find(
+              (el) => el._id === placeObj.tokenLabel
+            );
+            if (label) {
+              label.visible(false);
+            }
+          }
+
           const storedArcs = this.$store.state.arcs;
           let arcs = [];
           for (let i = 0; i < storedArcs.length; i++) {
@@ -39,13 +53,17 @@ export default {
               arcs.push(storedArcs[i]);
             }
           }
+          const transitions = this.$store.state.transitions.filter(
+            (el) => el.id !== event.target._id
+          );
+          const places = this.$store.state.places.filter(
+            (el) => el.id !== event.target._id
+          );
           this.$store.state.transitions = transitions;
           this.$store.state.places = places;
           this.$store.state.arcs = arcs;
           object.destroy();
-          console.log(arcs);
         }
-        // this.$store.state.layer.batchDraw();
       }
     },
     deleteObjectClicked() {

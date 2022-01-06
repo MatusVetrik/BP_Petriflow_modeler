@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import Konva from "konva";
+
 export default {
   data() {
     return {
@@ -14,14 +16,31 @@ export default {
   methods: {
     changeArcWeight(event) {
       if (this.changeArcWeightClicked()) {
+        let isLabel = false;
+        let labelForChange;
         const arcs = this.$store.state.arcs;
-        const arc = arcs.find((el) => el.id === event.target._id);
-        if (arc) {
+        let arc = arcs.find((el) => el.id === event.target._id);
+        const labelEl = event.target.parent;
+        if (!arc && labelEl instanceof Konva.Label) {
+          arc = arcs.find((el) => el.labelId === labelEl._id);
+          isLabel = true;
+        }
+        if (arc || labelEl) {
           const value = window.prompt("Add weight to the arc: ");
-          value > 1 ? (arc.multiplicity = +value) : (arc.multiplicity = 1);
-          const labelForChange = event.target.parent.children.find(
-            (el) => el._id === arc.labelId
-          );
+          if (!isLabel) {
+            labelForChange = event.target.parent.children.find(
+              (el) => el._id === arc.labelId
+            );
+          } else {
+            labelForChange = labelEl;
+          }
+          labelForChange.visible(true);
+          if (value > 1) {
+            arc.multiplicity = +value;
+          } else {
+            arc.multiplicity = 1;
+            labelForChange.visible(false);
+          }
           console.log(this.layer);
           labelForChange.getText().text(arc.multiplicity);
         }

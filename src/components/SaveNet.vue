@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     downloadJSON() {
-      const title = prompt("Zadajte názov súboru:");
+      const title = prompt("Please enter file name:");
       if (title) {
         const transitions = this.$store.state.transitions;
         const places = this.$store.state.places;
@@ -27,7 +27,7 @@ export default {
       }
     },
     downloadXML() {
-      const title = prompt("Zadajte názov súboru:");
+      const title = prompt("Please enter file name:");
       if (title) {
         const transitions = this.$store.state.transitions;
         const places = this.$store.state.places;

@@ -1,14 +1,22 @@
 <template>
-  <img
-    :src="addTokens.src"
-    alt="Add Token"
-    @click="chooseAction('addTokens')"
-  />
-  <img
-    :src="removeTokens.src"
-    alt="Remove Token"
-    @click="chooseAction('removeTokens')"
-  />
+  <div>
+    <div class="tooltip">
+      <img
+        :src="addTokens.src"
+        alt="Add Token"
+        @click="chooseAction('addTokens')"
+      />
+      <div class="tooltiptext">Add Tokens</div>
+    </div>
+    <div class="tooltip">
+      <img
+        :src="removeTokens.src"
+        alt="Remove Token"
+        @click="chooseAction('removeTokens')"
+      />
+      <div class="tooltiptext">Remove Tokens</div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -66,4 +74,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+div {
+  display: flex;
+  flex-direction: column;
+}
+</style>

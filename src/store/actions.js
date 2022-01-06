@@ -39,7 +39,7 @@ export default {
       x: payload.event.clientX,
       y: payload.event.clientY,
       radius: 20,
-      fill: "white",
+
       stroke: "black",
       strokeWidth: 2,
       draggable: false,
@@ -48,10 +48,11 @@ export default {
       payload.event.clientX,
       payload.event.clientY,
       "",
-      -19,
-      18
+      -20,
+      -13
     );
     payload.layer.add(label);
+    label.zIndex(0);
     payload.layer.add(place);
     addHoverEffect(place);
     context.commit("pushPlace", {
@@ -65,6 +66,8 @@ export default {
     const labelY = (payload.endXY.y + payload.startXY.y) / 2;
     const label = addLabel(labelX - 10, labelY - 10, "", 0, 0);
     payload.layer.add(label);
+    label.visible(false);
+    addHoverEffect(label.children[1]);
     context.commit("pushArc", {
       id: payload.id,
       start: payload.start,
@@ -89,6 +92,11 @@ const addLabel = (x, y, innerText, offsetX, offsetY, width = 40) => {
     y: y + offsetY,
     opacity: 1,
   });
+  label.add(
+    new Konva.Tag({
+      fill: "white",
+    })
+  );
   label.add(
     new Konva.Text({
       text: innerText,
