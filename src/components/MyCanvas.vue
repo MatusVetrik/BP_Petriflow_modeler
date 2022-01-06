@@ -15,14 +15,14 @@ export default {
   mounted() {
     this.stage = new Konva.Stage({
       container: this.$refs.container,
-      width: 1900,
-      height: 900,
+      width: window.innerWidth,
+      height: window.innerHeight,
     });
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
-    this.layer.zIndex(0);
     this.$store.state.layer = this.layer;
     this.$store.state.stage = this.stage;
+    window.addEventListener("resize", this.setCanvasResponsive);
   },
   methods: {
     clickOnCanvas(event) {
@@ -40,20 +40,10 @@ export default {
           layer: this.layer,
         });
       }
-      if (this.$store.state.clicked.type === "delete") {
-        this.$store.dispatch("deleteObject", {
-          event: event,
-          stage: this.stage,
-          layer: this.layer,
-        });
-      }
-      if (this.$store.state.clicked.type === "addTokens") {
-        this.$store.dispatch("addTokens", {
-          event: event,
-          stage: this.stage,
-          layer: this.layer,
-        });
-      }
+    },
+    setCanvasResponsive() {
+      this.stage.width(window.innerWidth);
+      this.stage.height(window.innerHeight);
     },
   },
 };

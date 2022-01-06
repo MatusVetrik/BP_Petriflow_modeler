@@ -1,5 +1,5 @@
 <template>
-  <img :src="save.src" alt="Save" />
+  <img :src="save.src" alt="Save" @click="downloadXML" />
 </template>
 
 <script>
@@ -12,21 +12,42 @@ export default {
     };
   },
   methods: {
-    saveURL(event) {
-      if (this.saveURLClicked()) {
-        console.log("SAVE URL");
-        event;
+    downloadJSON() {
+      const title = prompt("Zadajte názov súboru:");
+      if (title) {
+        const transitions = this.$store.state.transitions;
+        const places = this.$store.state.places;
+        const arcs = this.$store.state.arcs;
+        const mergedJSON = JSON.stringify(transitions.concat(places, arcs));
+        const a = document.createElement("a");
+        const file = new Blob([mergedJSON], { type: "text/plain" });
+        a.href = URL.createObjectURL(file);
+        a.download = title;
+        a.click();
       }
     },
-    saveURLClicked() {
-      if (this.$store.state.clicked.type === "save") return true;
-      return false;
+    downloadXML() {
+      const title = prompt("Zadajte názov súboru:");
+      if (title) {
+        const transitions = this.$store.state.transitions;
+        const places = this.$store.state.places;
+        const arcs = this.$store.state.arcs;
+        const o2x = require("object-to-xml");
+        const obj = {
+          '?xml version="1.0" encoding="UTF-8"?': null,
+          document: {
+            transitions,
+            places,
+            arcs,
+          },
+        };
+        const a = document.createElement("a");
+        const file = new Blob([o2x(obj)], { type: "text/plain" });
+        a.href = URL.createObjectURL(file);
+        a.download = title;
+        a.click();
+      }
     },
-  },
-  mounted() {
-    this.$store.state.stage.on("mousedown", (event) => {
-      this.saveURL(event);
-    });
   },
 };
 </script>

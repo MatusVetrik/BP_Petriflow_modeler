@@ -12,7 +12,10 @@
     <change-weight @click="chooseAction('arcWeight')" />
     <delete-object @click="chooseAction('delete')" />
     <save-net @click="chooseAction('save')" />
-    <start-simulation @click="simulationProcess()" />
+    <start-simulation
+      @mousedown="chooseAction('simulation')"
+      @click="simulationProcess()"
+    />
   </div>
 </template>
 
@@ -74,7 +77,7 @@ export default {
       this.$store.dispatch("startSimulation");
     },
     simulationProcess() {
-      this.chooseAction(null, "simulation");
+      this.chooseAction("simulation");
       if (this.$store.state.layer) {
         const transitions = this.$store.state.transitions;
         const places = this.$store.state.places;

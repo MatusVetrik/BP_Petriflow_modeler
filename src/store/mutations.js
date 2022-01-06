@@ -13,9 +13,6 @@ export default {
       id: payload.id,
       x: payload.payload.event.clientX,
       y: payload.payload.event.clientY,
-      layout: {
-        offset: 0,
-      },
       label: "",
       labelId: payload.label,
     });
@@ -41,10 +38,4 @@ export default {
       labelId: payload.labelId,
     });
   },
-  deleteObject(state, payload) {
-    state, payload;
-  },
-  // addTokens(state,payload){
-  //   state.
-  // }
 };
