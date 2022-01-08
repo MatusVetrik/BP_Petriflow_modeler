@@ -44,21 +44,31 @@ export default {
       strokeWidth: 2,
       draggable: false,
     });
-    const label = addLabel(
+    const labelTokens = addLabel(
       payload.event.clientX,
       payload.event.clientY,
       "",
       -20,
       -13
     );
-    payload.layer.add(label);
-    label.zIndex(0);
+    const labelTag = addLabel(
+      payload.event.clientX,
+      payload.event.clientY,
+      "",
+      -50,
+      20,
+      100
+    );
+    payload.layer.add(labelTokens);
+    payload.layer.add(labelTag);
+    labelTokens.zIndex(0);
     payload.layer.add(place);
     addHoverEffect(place);
     context.commit("pushPlace", {
       payload: payload,
       id: place._id,
-      label: label._id,
+      label: labelTokens._id,
+      labelTag: labelTag._id,
     });
   },
   addArc(context, payload) {

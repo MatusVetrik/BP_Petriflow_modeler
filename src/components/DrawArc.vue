@@ -33,7 +33,7 @@ export default {
               : [this.start[1].x, this.start[1].y],
             stroke: "black",
             strokeWidth: 2,
-            hitStrokeWidth: 20,
+            hitStrokeWidth: 10,
             fill: "black",
           });
           this.$store.state.layer.add(this.arrow);
@@ -134,14 +134,26 @@ export default {
       const dy = to.y - from.y;
       let angle = Math.atan2(-dy, dx);
 
-      const radius = 22;
+      const radius = 23;
       let rectOffset = 0;
-      if (rect) {
-        rectOffset = Math.abs(Math.cos(angle) * 10);
-      }
+      // if (rect) {
+      //   let x, y;
+      //   const angle2 = (Math.atan2(dy, dx) * 180) / Math.PI;
+      //   const cos = Math.cos(angle2);
+      //   const sin = Math.sin(angle2);
+      //   if (40 * Math.abs(sin) < 40 * Math.abs(cos)) {
+      //     x = Math.sign(cos) * 20;
+      //     y = Math.tan(angle2) * x;
+      //   } else {
+      //     x = Math.sign(sin) * 20;
+      //     y = (1 / Math.tan(angle2)) * y;
+      //   }
+      //   rectOffset = Math.sqrt(x ** 2 + y ** 2);
+      // }
+      rect;
       return [
-        from.x + -radius * Math.cos(angle + Math.PI),
-        from.y + radius * Math.sin(angle + Math.PI),
+        from.x + -(radius + rectOffset) * Math.cos(angle + Math.PI),
+        from.y + (radius + rectOffset) * Math.sin(angle + Math.PI),
         to.x + -(radius + rectOffset) * Math.cos(angle),
         to.y + (radius + rectOffset) * Math.sin(angle),
       ];

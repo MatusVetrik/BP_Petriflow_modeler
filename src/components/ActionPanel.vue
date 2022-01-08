@@ -34,6 +34,10 @@
       <div class="tooltiptext">Save XML</div>
     </div>
     <div class="tooltip">
+      <import-net @click="chooseAction('import')" />
+      <div class="tooltiptext">Load XML</div>
+    </div>
+    <div class="tooltip">
       <start-simulation
         @mousedown="chooseAction('simulation')"
         @click="simulationProcess()"
@@ -51,6 +55,7 @@ import ChangeTokens from "./ChangeTokens.vue";
 import DrawArc from "./DrawArc.vue";
 import StartSimulation from "./StartSimulation.vue";
 import SaveNet from "./SaveNet.vue";
+import ImportNet from "./ImportNet.vue";
 
 export default {
   components: {
@@ -61,6 +66,7 @@ export default {
     DrawArc,
     StartSimulation,
     SaveNet,
+    ImportNet,
   },
   data() {
     return {
@@ -69,24 +75,6 @@ export default {
       },
       place: {
         src: require("../assets/icons/place.svg"),
-      },
-      arc: {
-        src: require("../assets/icons/arc.svg"),
-      },
-      move: {
-        src: require("../assets/icons/move.svg"),
-      },
-      save: {
-        src: require("../assets/icons/save.svg"),
-      },
-      arcWeight: {
-        src: require("../assets/icons/arcweight.svg"),
-      },
-      deleteNode: {
-        src: require("../assets/icons/delete.svg"),
-      },
-      changeLabel: {
-        src: require("../assets/icons/label.svg"),
       },
     };
   },

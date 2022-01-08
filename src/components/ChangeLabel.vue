@@ -16,6 +16,8 @@ export default {
       if (this.changeLabelClicked()) {
         const transitions = this.$store.state.transitions;
         const trans = transitions.find((el) => el.id === event.target._id);
+        const places = this.$store.state.places;
+        const place = places.find((el) => el.id === event.target._id);
         if (trans) {
           const value = window.prompt("Add label to transition: ");
           trans.label = value;
@@ -23,6 +25,13 @@ export default {
             (el) => el._id === trans.labelId
           );
           labelForChange.getText().text(trans.label);
+        } else if (place) {
+          const value = window.prompt("Add label to place: ");
+          place.label = value;
+          const labelForChange = event.target.parent.children.find(
+            (el) => el._id === place.labelId
+          );
+          labelForChange.getText().text(place.label);
         }
       }
     },

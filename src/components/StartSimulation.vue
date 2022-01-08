@@ -10,7 +10,6 @@ export default {
       startSimulation: {
         src: require("../assets/icons/fire.svg"),
       },
-      used: false,
       servedPlaces: [],
     };
   },
