@@ -30,6 +30,10 @@
       <div class="tooltiptext">Delete</div>
     </div>
     <div class="tooltip">
+      <clear-canvas @click="chooseAction('clear')" />
+      <div class="tooltiptext">Clear</div>
+    </div>
+    <div class="tooltip">
       <save-net @click="chooseAction('save')" />
       <div class="tooltiptext">Save XML</div>
     </div>
@@ -56,6 +60,7 @@ import DrawArc from "./DrawArc.vue";
 import StartSimulation from "./StartSimulation.vue";
 import SaveNet from "./SaveNet.vue";
 import ImportNet from "./ImportNet.vue";
+import ClearCanvas from "./ClearCanvas.vue";
 
 export default {
   components: {
@@ -67,6 +72,7 @@ export default {
     StartSimulation,
     SaveNet,
     ImportNet,
+    ClearCanvas,
   },
   data() {
     return {
@@ -122,7 +128,7 @@ export default {
     },
     clearSimulationMode() {
       const transitions = this.$store.state.transitions;
-      if (transitions) {
+      if (transitions.length > 0) {
         for (let i = 0; i < transitions.length; i++) {
           this.$store.state.layer.children
             .find((el) => el._id === transitions[i].id)
@@ -136,10 +142,10 @@ export default {
 
 <style>
 img {
-  width: 1.7rem;
+  width: 1.5rem;
   border: solid 2px black;
   padding: 0.5rem;
-  margin: 0.4rem;
+  margin: 0.15rem;
   border-radius: 1rem;
   transition: 0.2s;
   background-color: rgb(237, 237, 237);

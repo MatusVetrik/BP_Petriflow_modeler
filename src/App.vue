@@ -25,7 +25,7 @@ export default {
   position: absolute;
   top: 0;
   left: 5;
-  height: 44.5rem;
+  height: 40.5rem;
   /* height: 41rem; */
   padding: 0.15rem;
   background: linear-gradient(to bottom, rgb(75, 195, 255), rgb(86, 80, 255));

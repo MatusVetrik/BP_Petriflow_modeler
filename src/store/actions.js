@@ -50,7 +50,7 @@ export default {
       payload.event.clientY,
       payload.tokens,
       -20,
-      -13,
+      -9,
       40,
       payload.visibility
     );
