@@ -25,6 +25,7 @@ export default {
             (el) => el._id === trans.labelId
           );
           labelForChange.getText().text(trans.label);
+          labelForChange.visible(true);
         } else if (place) {
           const value = window.prompt("Add label to place: ");
           place.label = value;
@@ -32,6 +33,7 @@ export default {
             (el) => el._id === place.labelId
           );
           labelForChange.getText().text(place.label);
+          labelForChange.visible(true);
         }
       }
     },

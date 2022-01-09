@@ -20,10 +20,11 @@ export default {
     const label = addLabel(
       payload.event.clientX,
       payload.event.clientY,
-      "",
+      payload.label,
       -50,
       20,
-      100
+      100,
+      payload.visibility
     );
     payload.layer.add(label);
     payload.layer.add(transition);
@@ -47,17 +48,20 @@ export default {
     const labelTokens = addLabel(
       payload.event.clientX,
       payload.event.clientY,
-      "",
+      payload.tokens,
       -20,
-      -13
+      -13,
+      40,
+      payload.visibility
     );
     const labelTag = addLabel(
       payload.event.clientX,
       payload.event.clientY,
-      "",
+      payload.label,
       -50,
       20,
-      100
+      100,
+      payload.visibility
     );
     payload.layer.add(labelTokens);
     payload.layer.add(labelTag);
@@ -69,14 +73,22 @@ export default {
       id: place._id,
       label: labelTokens._id,
       labelTag: labelTag._id,
+      tokens: payload.tokens,
     });
   },
   addArc(context, payload) {
     const labelX = (payload.endXY.x + payload.startXY.x) / 2;
     const labelY = (payload.endXY.y + payload.startXY.y) / 2;
-    const label = addLabel(labelX - 10, labelY - 10, "", 0, 0);
+    const label = addLabel(
+      labelX - 10,
+      labelY - 10,
+      payload.multiplicity,
+      0,
+      0,
+      30,
+      payload.labelVisibility
+    );
     payload.layer.add(label);
-    label.visible(false);
     addHoverEffect(label.children[1]);
     context.commit("pushArc", {
       id: payload.id,
@@ -89,18 +101,34 @@ export default {
 
 const addHoverEffect = (object) => {
   object.on("mouseover touchstart", function () {
+    if (object instanceof Konva.Text) {
+      this.strokeWidth(1);
+    }
     this.stroke("#00a2ec");
   });
   object.on("mouseout touchend", function () {
-    this.stroke("black");
+    if (object instanceof Konva.Text) {
+      this.strokeWidth(0);
+    } else {
+      this.stroke("black");
+    }
   });
 };
 
-const addLabel = (x, y, innerText, offsetX, offsetY, width = 40) => {
+const addLabel = (
+  x,
+  y,
+  innerText,
+  offsetX,
+  offsetY,
+  width = 40,
+  visibility = false
+) => {
   const label = new Konva.Label({
     x: x + offsetX,
     y: y + offsetY,
     opacity: 1,
+    visible: visibility,
   });
   label.add(
     new Konva.Tag({
@@ -112,11 +140,12 @@ const addLabel = (x, y, innerText, offsetX, offsetY, width = 40) => {
       text: innerText,
       fontFamily: "Calibri",
       fontSize: 18,
-      padding: 5,
+      padding: 0,
       width: width,
       fill: "black",
       align: "center",
       wrap: "word",
+      strokeWidth: 0.5,
     })
   );
   return label;

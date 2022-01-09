@@ -53,9 +53,13 @@ export default {
           const labelForChange = event.target.parent.children.find(
             (el) => el._id === changingDestination.tokenLabel
           );
-          if (changingDestination.tokens === 0)
+          if (changingDestination.tokens === 0) {
             labelForChange.getText().text("");
-          else labelForChange.getText().text(changingDestination.tokens);
+            labelForChange.visible(false);
+          } else {
+            labelForChange.getText().text(changingDestination.tokens);
+            labelForChange.visible(true);
+          }
         }
       }
     },

@@ -24,7 +24,7 @@ export default {
       y: payload.payload.event.clientY,
       label: "",
       labelId: payload.labelTag,
-      tokens: 0,
+      tokens: payload.tokens,
       tokenLabel: payload.label,
       static: false,
     });

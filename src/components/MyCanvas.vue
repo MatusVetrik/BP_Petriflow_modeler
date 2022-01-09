@@ -20,8 +20,8 @@ export default {
     });
     this.layer = new Konva.Layer();
     this.stage.add(this.layer);
-    this.$store.state.layer = this.layer;
     this.$store.state.stage = this.stage;
+    this.$store.state.layer = this.layer;
     window.addEventListener("resize", this.setCanvasResponsive);
   },
   methods: {
@@ -31,6 +31,8 @@ export default {
           event: event,
           stage: this.stage,
           layer: this.layer,
+          label: "",
+          visibility: false,
         });
       }
       if (this.$store.state.clicked.type === "place") {
@@ -38,6 +40,9 @@ export default {
           event: event,
           stage: this.stage,
           layer: this.layer,
+          label: "",
+          tokens: 0,
+          visibility: false,
         });
       }
     },

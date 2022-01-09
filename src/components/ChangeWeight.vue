@@ -41,7 +41,6 @@ export default {
             arc.multiplicity = 1;
             labelForChange.visible(false);
           }
-          console.log(this.layer);
           labelForChange.getText().text(arc.multiplicity);
         }
       }

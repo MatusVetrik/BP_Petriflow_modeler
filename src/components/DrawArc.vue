@@ -126,6 +126,8 @@ export default {
             x: found.attrs.x,
             y: found.attrs.y,
           },
+          multiplicity: "",
+          labelVisibility: false,
         });
       }
     },

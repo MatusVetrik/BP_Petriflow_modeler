@@ -31,10 +31,12 @@ export default {
                 (el) => el.id === arcs[i].destinationId
               );
               sourcePlace.tokens += arcs[i].multiplicity;
+
               const labelForChange = this.$store.state.layer.children.find(
                 (el) => el._id === sourcePlace.tokenLabel
               );
               labelForChange.getText().text(sourcePlace.tokens);
+              labelForChange.visible(true);
             }
           }
         } else {
@@ -63,6 +65,7 @@ export default {
                             (el) => el._id === places[k].tokenLabel
                           );
                         labelForChange.getText().text(places[k].tokens);
+                        labelForChange.visible(true);
                         this.servedPlaces.push(places[k].id);
                       }
                     }
