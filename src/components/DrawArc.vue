@@ -13,6 +13,7 @@ export default {
       arc: {
         src: require("../assets/icons/arc.svg"),
       },
+      dragging: false,
     };
   },
   methods: {
@@ -21,7 +22,7 @@ export default {
       return 0;
     },
     mouseDown(event) {
-      if (this.drawLine()) {
+      if (this.drawLine() && !this.dragging) {
         const transitions = this.$store.state.transitions;
         const places = this.$store.state.places;
         this.start[0] = transitions.find((el) => el.id === event.target._id);
@@ -39,11 +40,17 @@ export default {
           this.$store.state.layer.add(this.arrow);
           this.$store.state.layer.batchDraw();
           this.startId = event.target._id;
+          this.dragging = true;
         }
       }
     },
     mouseMove() {
-      if (this.arrow && (this.start[0] || this.start[1]) && this.drawLine()) {
+      if (
+        this.arrow &&
+        (this.start[0] || this.start[1]) &&
+        this.drawLine() &&
+        this.dragging
+      ) {
         const pos = this.$store.state.stage.getPointerPosition();
         const points = [
           this.arrow.points()[0],
@@ -56,10 +63,11 @@ export default {
       }
     },
     mouseUp(event) {
-      if (this.drawLine()) {
+      if (this.drawLine() && this.dragging) {
         if (this.arrow) this.checkObjects(event.target);
         this.arrow = null;
         this.startId = null;
+        this.dragging = false;
       }
     },
     checkObjects(target) {
@@ -163,10 +171,10 @@ export default {
   },
   mounted() {
     this.$store.state.stage.on("mousedown", (event) => {
+      this.mouseUp(event);
       this.mouseDown(event);
     });
     this.$store.state.stage.on("mousemove", this.mouseMove);
-    this.$store.state.stage.on("mouseup", (event) => this.mouseUp(event));
   },
 };
 </script>
