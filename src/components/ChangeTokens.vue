@@ -5,6 +5,11 @@
         :src="addTokens.src"
         alt="Add Token"
         @click="chooseAction('addTokens')"
+        :style="
+          this.$store.state.clicked.type === 'addTokens'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
       />
       <div class="tooltiptext">Add Tokens</div>
     </div>
@@ -13,6 +18,11 @@
         :src="removeTokens.src"
         alt="Remove Token"
         @click="chooseAction('removeTokens')"
+        :style="
+          this.$store.state.clicked.type === 'removeTokens'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
       />
       <div class="tooltiptext">Remove Tokens</div>
     </div>

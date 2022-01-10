@@ -5,46 +5,114 @@
         :src="transition.src"
         alt="Transtition"
         @click="chooseAction('transition')"
+        :style="
+          this.$store.state.clicked.type === 'transition'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
       />
       <div class="tooltiptext">Transtition</div>
     </div>
     <div class="tooltip">
-      <img :src="place.src" alt="Place" @click="chooseAction('place')" />
+      <img
+        :src="place.src"
+        alt="Place"
+        @click="chooseAction('place')"
+        :style="
+          this.$store.state.clicked.type === 'place'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+      />
       <div class="tooltiptext">Place</div>
     </div>
     <change-tokens />
     <div class="tooltip">
-      <change-label @click="chooseAction('change')" />
+      <change-label
+        @click="chooseAction('change')"
+        :style="
+          this.$store.state.clicked.type === 'change'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+      />
       <div class="tooltiptext">Label</div>
     </div>
     <div class="tooltip">
-      <draw-arc @click="chooseAction('arc')" />
+      <draw-arc
+        @click="chooseAction('arc')"
+        :style="
+          this.$store.state.clicked.type === 'arc'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+      />
       <div class="tooltiptext">Arc</div>
     </div>
     <div class="tooltip">
-      <change-weight @click="chooseAction('arcWeight')" />
+      <change-weight
+        @click="chooseAction('arcWeight')"
+        :style="
+          this.$store.state.clicked.type === 'arcWeight'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+      />
       <div class="tooltiptext">Arc Weight</div>
     </div>
     <div class="tooltip">
-      <delete-object @click="chooseAction('delete')" />
+      <delete-object
+        @click="chooseAction('delete')"
+        :style="
+          this.$store.state.clicked.type === 'delete'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+      />
       <div class="tooltiptext">Delete</div>
     </div>
     <div class="tooltip">
-      <clear-canvas @click="chooseAction('clear')" />
+      <clear-canvas
+        @click="chooseAction('clear')"
+        :style="
+          this.$store.state.clicked.type === 'clear'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+      />
       <div class="tooltiptext">Clear</div>
     </div>
     <div class="tooltip">
-      <save-net @click="chooseAction('save')" />
+      <save-net
+        @click="chooseAction('save')"
+        :style="
+          this.$store.state.clicked.type === 'save'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+      />
       <div class="tooltiptext">Save XML</div>
     </div>
     <div class="tooltip">
-      <import-net @click="chooseAction('import')" />
+      <import-net
+        @click="chooseAction('import')"
+        :style="
+          this.$store.state.clicked.type === 'import'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+      />
       <div class="tooltiptext">Load XML</div>
     </div>
     <div class="tooltip">
       <start-simulation
         @mousedown="chooseAction('simulation')"
         @click="simulationProcess()"
+        :style="
+          this.$store.state.clicked.type === 'simulation'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
       />
       <div class="tooltiptext">Simulation</div>
     </div>
@@ -82,6 +150,7 @@ export default {
       place: {
         src: require("../assets/icons/place.svg"),
       },
+      clicked: this.$store.state.clicked.type,
     };
   },
   methods: {
@@ -142,18 +211,17 @@ export default {
 
 <style>
 img {
-  width: 1.5rem;
-  border: solid 2px black;
+  width: 1.4rem;
+  border: solid 3px white;
   padding: 0.5rem;
   margin: 0.15rem;
   border-radius: 1rem;
   transition: 0.2s;
-  background-color: rgb(237, 237, 237);
+  background-color: white;
 }
 
 img:hover {
   transform: scale(1.15);
-  border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
