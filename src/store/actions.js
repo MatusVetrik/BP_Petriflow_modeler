@@ -26,6 +26,7 @@ export default {
       100,
       payload.visibility
     );
+    // transition._id = new Date().getTime();
     payload.layer.add(label);
     payload.layer.add(transition);
     addHoverEffect(transition);
@@ -95,6 +96,7 @@ export default {
       start: payload.start,
       end: payload.end,
       labelId: label._id,
+      multiplicity: payload.multiplicity,
     });
   },
 };

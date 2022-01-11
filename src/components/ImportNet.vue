@@ -77,7 +77,7 @@ export default {
           layer: this.$store.state.layer,
           label: this.places[i].label._text,
           tokens: parseInt(this.places[i].tokens._text),
-          visibility: true,
+          visibility: parseInt(this.places[i].tokens._text) > 0 ? true : false,
         });
       }
     },
@@ -87,24 +87,47 @@ export default {
         let startEl = this.transitions.find(
           (el) => el.id._text === this.arcs[i].sourceId._text
         );
+        let startElNew;
         if (!startEl) {
           startEl = this.places.find(
             (el) => el.id._text === this.arcs[i].sourceId._text
+          );
+          startElNew = this.$store.state.places.find(
+            (el) =>
+              el.x === parseInt(startEl.x._text) &&
+              el.y === parseInt(startEl.y._text)
+          );
+        } else {
+          startElNew = this.$store.state.transitions.find(
+            (el) =>
+              el.x === parseInt(startEl.x._text) &&
+              el.y === parseInt(startEl.y._text)
           );
         }
         let endEl = this.transitions.find(
           (el) => el.id._text === this.arcs[i].destinationId._text
         );
+        let endElNew;
         if (!endEl) {
           endEl = this.places.find(
             (el) => el.id._text === this.arcs[i].destinationId._text
           );
+          endElNew = this.$store.state.places.find(
+            (el) =>
+              el.x === parseInt(endEl.x._text) &&
+              el.y === parseInt(endEl.y._text)
+          );
+        } else {
+          endElNew = this.$store.state.transitions.find(
+            (el) =>
+              el.x === parseInt(endEl.x._text) &&
+              el.y === parseInt(endEl.y._text)
+          );
         }
-        console.log(startEl, endEl);
         const arrow = new Konva.Arrow({
           points: this.getConnectorPoints(
-            { x: parseInt(startEl.x._text), y: parseInt(startEl.y._text) },
-            { x: parseInt(endEl.x._text), y: parseInt(endEl.y._text) }
+            { x: parseInt(startElNew.x), y: parseInt(startElNew.y) },
+            { x: parseInt(endElNew.x), y: parseInt(endElNew.y) }
           ),
           stroke: "black",
           strokeWidth: 2,
@@ -122,12 +145,13 @@ export default {
         this.$store.dispatch("addArc", {
           layer: this.$store.state.layer,
           id: arrow._id,
-          start: parseInt(startEl.id._text),
-          end: parseInt(endEl.id._text),
-          startXY: { x: startEl.x, y: startEl.y },
-          endXY: { x: endEl.x, y: endEl.y },
-          multiplicity: this.arcs[i].multiplicity._text,
-          labelVisibility: true,
+          start: parseInt(startElNew.id),
+          end: parseInt(endElNew.id),
+          startXY: { x: startElNew.x, y: startElNew.y },
+          endXY: { x: endElNew.x, y: endElNew.y },
+          multiplicity: parseInt(this.arcs[i].multiplicity._text),
+          labelVisibility:
+            parseInt(this.arcs[i].multiplicity._text) > 1 ? true : false,
         });
       }
     },

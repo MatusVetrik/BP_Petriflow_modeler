@@ -27,28 +27,44 @@ export default {
   methods: {
     clickOnCanvas(event) {
       if (this.$store.state.clicked.type === "transition") {
-        this.$store.dispatch("drawTransition", {
-          event: event,
-          stage: this.stage,
-          layer: this.layer,
-          label: "",
-          visibility: false,
-        });
+        if (this.checkNearByPosition(this.$store.state.transitions, event)) {
+          this.$store.dispatch("drawTransition", {
+            event: event,
+            stage: this.stage,
+            layer: this.layer,
+            label: "",
+            visibility: false,
+          });
+        }
       }
-      if (this.$store.state.clicked.type === "place") {
-        this.$store.dispatch("drawPlace", {
-          event: event,
-          stage: this.stage,
-          layer: this.layer,
-          label: "",
-          tokens: 0,
-          visibility: false,
-        });
+      if (this.checkNearByPosition(this.$store.state.places, event)) {
+        if (this.$store.state.clicked.type === "place") {
+          this.$store.dispatch("drawPlace", {
+            event: event,
+            stage: this.stage,
+            layer: this.layer,
+            label: "",
+            tokens: 0,
+            visibility: false,
+          });
+        }
       }
     },
     setCanvasResponsive() {
       this.stage.width(window.innerWidth);
       this.stage.height(window.innerHeight);
+    },
+    checkNearByPosition(arr, event) {
+      return (
+        !arr ||
+        !arr.find(
+          (el) =>
+            el.x <= event.clientX + 20 &&
+            el.x >= event.clientX - 20 &&
+            el.y <= event.clientY + 20 &&
+            el.y >= event.clientY - 20
+        )
+      );
     },
   },
 };

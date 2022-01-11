@@ -35,7 +35,7 @@ export default {
       type: "regular",
       sourceId: payload.start,
       destinationId: payload.end,
-      multiplicity: 1,
+      multiplicity: payload.multiplicity,
       labelId: payload.labelId,
     });
   },
