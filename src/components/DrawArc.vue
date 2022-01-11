@@ -134,8 +134,9 @@ export default {
             x: found.attrs.x,
             y: found.attrs.y,
           },
-          multiplicity: "",
+          multiplicityLabel: "",
           labelVisibility: false,
+          multiplicity: 1,
         });
       }
     },

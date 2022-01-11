@@ -83,7 +83,7 @@ export default {
     const label = addLabel(
       labelX - 10,
       labelY - 10,
-      payload.multiplicity,
+      payload.multiplicityLabel,
       0,
       0,
       30,
