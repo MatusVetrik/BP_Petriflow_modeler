@@ -3,7 +3,7 @@
     <div class="tooltip">
       <img
         :src="transition.src"
-        alt="Transtition"
+        alt="Transition"
         @click="chooseAction('transition')"
         :style="
           this.$store.state.clicked.type === 'transition'
@@ -229,30 +229,30 @@ img:hover {
   margin: 0.25rem;
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  /* flex-direction: column; */
 }
 
 .tooltip {
   position: relative;
   display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tooltip .tooltiptext {
   visibility: hidden;
   opacity: 0;
   color: #000;
-  text-align: center;
   border-radius: 2rem;
   padding: 5px;
   font-size: 50%;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.432);
   white-space: nowrap;
 
-  /* Position the tooltip */
   position: absolute;
   z-index: 2;
-  left: 170%;
-  top: 30%;
+  top: 135%;
   transition: 0.5s;
 }
 

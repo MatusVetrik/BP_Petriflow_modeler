@@ -91,7 +91,7 @@ export default {
 <style scoped>
 div {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
 }
 img {
   margin-bottom: 0.3rem;
