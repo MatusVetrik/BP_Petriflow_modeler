@@ -25,7 +25,7 @@ export default {
           arc = arcs.find((el) => el.labelId === labelEl._id);
           isLabel = true;
         }
-        if (arc || labelEl) {
+        if (arc || labelEl instanceof Konva.Label) {
           const value = window.prompt("Add weight to the arc: ");
           if (!isLabel) {
             labelForChange = event.target.parent.children.find(
