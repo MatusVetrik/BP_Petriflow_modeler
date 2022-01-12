@@ -83,6 +83,18 @@
       <div class="tooltiptext">Clear</div>
     </div>
     <div class="tooltip">
+      <move-element
+        @click="chooseAction('move')"
+        :style="
+          this.$store.state.clicked.type === 'move'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+        ref="move"
+      />
+      <div class="tooltiptext">Move</div>
+    </div>
+    <div class="tooltip">
       <save-net
         @click="chooseAction('save')"
         :style="
@@ -130,6 +142,7 @@ import StartSimulation from "./StartSimulation.vue";
 import SaveNet from "./SaveNet.vue";
 import ImportNet from "./ImportNet.vue";
 import ClearCanvas from "./ClearCanvas.vue";
+import MoveElement from "./MoveElement.vue";
 
 export default {
   components: {
@@ -142,6 +155,7 @@ export default {
     SaveNet,
     ImportNet,
     ClearCanvas,
+    MoveElement,
   },
   data() {
     return {
@@ -160,6 +174,7 @@ export default {
         type: type,
       });
       this.clearSimulationMode();
+      this.disableDragging();
     },
     clearSimulationMode() {
       const transitions = this.$store.state.transitions;
@@ -170,6 +185,10 @@ export default {
             .fill("white");
         }
       }
+    },
+    disableDragging() {
+      if (this.$store.state.clicked.type !== "move")
+        this.$refs.move.draggingDisabled();
     },
   },
 };
