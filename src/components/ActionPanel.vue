@@ -11,7 +11,7 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Transtition</div>
+      <div class="tooltiptext">Transition</div>
     </div>
     <div class="tooltip">
       <img
@@ -26,7 +26,7 @@
       />
       <div class="tooltiptext">Place</div>
     </div>
-    <change-tokens />
+    <change-tokens @click="clearSimulationMode()" />
     <div class="tooltip">
       <change-label
         @click="chooseAction('change')"
@@ -106,8 +106,9 @@
     </div>
     <div class="tooltip">
       <start-simulation
+        ref="simulationComponent"
         @mousedown="chooseAction('simulation')"
-        @click="simulationProcess()"
+        @click="$refs.simulationComponent.simulationRound()"
         :style="
           this.$store.state.clicked.type === 'simulation'
             ? { 'border-color': 'black' }
@@ -159,41 +160,6 @@ export default {
         type: type,
       });
       this.clearSimulationMode();
-    },
-    simulationMode() {
-      this.$store.dispatch("startSimulation");
-    },
-    simulationProcess() {
-      this.chooseAction("simulation");
-      if (this.$store.state.layer) {
-        const transitions = this.$store.state.transitions;
-        const places = this.$store.state.places;
-        const arcs = this.$store.state.arcs;
-        for (let i = 0; i < transitions.length; i++) {
-          for (let j = 0; j < arcs.length; j++) {
-            if (arcs[j].sourceId === transitions[i].id) {
-              const destinationArcFound = arcs.find(
-                (el) => el.destinationId === transitions[i].id
-              );
-              if (!destinationArcFound) {
-                const object = this.$store.state.layer.children.find(
-                  (el) => el._id === transitions[i].id
-                );
-                object.fill("#22d481");
-              }
-            } else {
-              for (let k = 0; k < places.length; k++) {
-                if (arcs[j].sourceId === places[k].id && places[k].tokens > 0) {
-                  const object = this.$store.state.layer.children.find(
-                    (el) => el._id === arcs[j].destinationId
-                  );
-                  object.fill("#22d481");
-                }
-              }
-            }
-          }
-        }
-      }
     },
     clearSimulationMode() {
       const transitions = this.$store.state.transitions;

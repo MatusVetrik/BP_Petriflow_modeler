@@ -23,7 +23,6 @@ export default {
         const targetDestinantionBlank = arcs.find(
           (el) => el.destinationId === event.target._id
         );
-        console.log(targetDestinantionBlank);
         if (!targetDestinantionBlank) {
           for (let i = 0; i < arcs.length; i++) {
             if (arcs[i].sourceId === target.id) {
@@ -76,8 +75,21 @@ export default {
                   (el) => el._id === sourcePlace.tokenLabel
                 );
                 if (sourcePlace.tokens === 0) {
+                  for (let i = 0; i < transitions.length; i++) {
+                    for (let j = 0; j < arcs.length; j++) {
+                      if (
+                        arcs[j].sourceId === sourcePlace.id &&
+                        arcs[j].destinationId === transitions[i].id
+                      ) {
+                        const foundEl = this.$store.state.layer.children.find(
+                          (el) => el._id === transitions[i].id
+                        );
+                        foundEl.fill("white");
+                      }
+                    }
+                  }
+                  // event.target.fill("white");
                   labelForChange.getText().text("");
-                  event.target.fill("white");
                 } else labelForChange.getText().text(sourcePlace.tokens);
               }
             }

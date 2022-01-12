@@ -1,4 +1,10 @@
 <template>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap"
+    rel="stylesheet"
+  />
   <my-canvas></my-canvas>
   <div id="panel">
     <action-panel></action-panel>
@@ -20,7 +26,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #panel {
   margin-left: auto;
   margin-right: auto;
@@ -30,5 +36,9 @@ export default {
   background-color: rgb(75, 195, 255);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   border-radius: 0 0 4rem 4rem;
+}
+div {
+  font-family: "Roboto", sans-serif;
+  font-size: 1em;
 }
 </style>
