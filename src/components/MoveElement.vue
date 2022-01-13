@@ -11,108 +11,110 @@ export default {
       move: {
         src: require("../assets/icons/move.svg"),
       },
+      layerChildren: null,
+      arcs: null,
     };
   },
   methods: {
     draggingObjects() {
-      const layerChildren = this.$store.state.layer.children;
-      for (let i = 0; i < layerChildren.length; i++) {
+      this.layerChildren = this.$store.state.layer.children;
+      for (let i = 0; i < this.layerChildren.length; i++) {
         if (
-          layerChildren[i] instanceof Konva.Rect ||
-          layerChildren[i] instanceof Konva.Circle
+          this.layerChildren[i] instanceof Konva.Rect ||
+          this.layerChildren[i] instanceof Konva.Circle
         ) {
-          layerChildren[i].draggable(true);
+          this.layerChildren[i].draggable(true);
           let element = this.$store.state.transitions.find(
-            (el) => layerChildren[i]._id == el.id
+            (el) => this.layerChildren[i]._id == el.id
           );
           if (!element) {
             element = this.$store.state.places.find(
-              (el) => layerChildren[i]._id == el.id
+              (el) => this.layerChildren[i]._id == el.id
             );
           }
-          const elLabel = layerChildren.find((el) => el._id == element.labelId);
-          layerChildren[i].on("dragmove", () => {
-            element.x = layerChildren[i].x();
-            element.y = layerChildren[i].y();
-            if (layerChildren[i] instanceof Konva.Rect) {
-              elLabel.x(layerChildren[i].x() - 30);
-              elLabel.y(layerChildren[i].y() + 40);
-            } else if (layerChildren[i] instanceof Konva.Circle) {
-              const elTokenLabel = layerChildren.find(
-                (el) => el._id == element.tokenLabel
-              );
-              elLabel.x(layerChildren[i].x() - 50);
-              elLabel.y(layerChildren[i].y() + 20);
-              elTokenLabel.x(layerChildren[i].x() - 20);
-              elTokenLabel.y(layerChildren[i].y() - 9);
-            }
-            const arcs = this.$store.state.arcs;
-            for (let j = 0; j < arcs.length; j++) {
-              const arrowSource = layerChildren.find(
-                (el) => el._id === arcs[j].sourceId
-              );
-              const arrowDest = layerChildren.find(
-                (el) => el._id === arcs[j].destinationId
-              );
-              if (arcs[j].destinationId === element.id) {
-                const arrow = layerChildren.find((el) => el._id === arcs[j].id);
-                let offsetSource = 0;
-                if (arrowSource instanceof Konva.Rect) {
-                  offsetSource = 20;
-                }
-                let offsetDest = 0;
-                if (arrowDest instanceof Konva.Rect) {
-                  offsetDest = 20;
-                }
 
-                const points = this.getConnectorPoints(
-                  {
-                    x: parseInt(arrowSource.x()) + offsetSource,
-                    y: parseInt(arrowSource.y()) + offsetSource,
-                  },
-                  {
-                    x: parseInt(layerChildren[i].x()) + offsetDest,
-                    y: parseInt(layerChildren[i].y()) + offsetDest,
-                  }
-                );
-                arrow.points(points);
-                const arcWeight = layerChildren.find(
-                  (el) => el._id == arcs[j].labelId
-                );
-                arcWeight.x((points[2] + points[0]) / 2 - 10);
-                arcWeight.y((points[3] + points[1]) / 2 - 10);
-              } else if (arcs[j].sourceId === element.id) {
-                const arrow = layerChildren.find((el) => el._id === arcs[j].id);
-                let offsetDest = 0;
-                if (arrowDest instanceof Konva.Rect) {
-                  offsetDest = 20;
-                }
-                let offsetSource = 0;
-                if (arrowSource instanceof Konva.Rect) {
-                  offsetSource = 20;
-                }
-
-                const points = this.getConnectorPoints(
-                  {
-                    x: parseInt(layerChildren[i].x()) + offsetSource,
-                    y: parseInt(layerChildren[i].y()) + offsetSource,
-                  },
-                  {
-                    x: parseInt(arrowDest.x()) + offsetDest,
-                    y: parseInt(arrowDest.y()) + offsetDest,
-                  }
-                );
-                arrow.points(points);
-                const arcWeight = layerChildren.find(
-                  (el) => el._id == arcs[j].labelId
-                );
-                arcWeight.x((points[2] + points[0]) / 2 - 10);
-                arcWeight.y((points[3] + points[1]) / 2 - 10);
-              }
-            }
+          this.layerChildren[i].on("dragmove", () => {
+            this.changeElementPosition(element, i);
+            this.moveArrow(element, i);
           });
         }
       }
+    },
+    changeElementPosition(element, i) {
+      const elLabel = this.layerChildren.find(
+        (el) => el._id == element.labelId
+      );
+      element.x = this.layerChildren[i].x();
+      element.y = this.layerChildren[i].y();
+      if (this.layerChildren[i] instanceof Konva.Rect) {
+        elLabel.x(this.layerChildren[i].x() - 30);
+        elLabel.y(this.layerChildren[i].y() + 40);
+      } else if (this.layerChildren[i] instanceof Konva.Circle) {
+        const elTokenLabel = this.layerChildren.find(
+          (el) => el._id == element.tokenLabel
+        );
+        elLabel.x(this.layerChildren[i].x() - 50);
+        elLabel.y(this.layerChildren[i].y() + 20);
+        elTokenLabel.x(this.layerChildren[i].x() - 20);
+        elTokenLabel.y(this.layerChildren[i].y() - 9);
+      }
+    },
+    moveArrow(element, i) {
+      this.arcs = this.$store.state.arcs;
+      for (let j = 0; j < this.arcs.length; j++) {
+        const arrowSource = this.layerChildren.find(
+          (el) => el._id === this.arcs[j].sourceId
+        );
+        const arrowDest = this.layerChildren.find(
+          (el) => el._id === this.arcs[j].destinationId
+        );
+        if (this.arcs[j].destinationId === element.id) {
+          this.repairArcPoints(true, arrowSource, arrowDest, i, j);
+        } else if (this.arcs[j].sourceId === element.id) {
+          this.repairArcPoints(false, arrowSource, arrowDest, i, j);
+        }
+      }
+    },
+    repairArcPoints(isDestination, arrowSource, arrowDest, i, j) {
+      const arrow = this.layerChildren.find((el) => el._id === this.arcs[j].id);
+      let offsetSource = 0;
+      if (arrowSource instanceof Konva.Rect) {
+        offsetSource = 20;
+      }
+      let offsetDest = 0;
+      if (arrowDest instanceof Konva.Rect) {
+        offsetDest = 20;
+      }
+      let points;
+      if (isDestination) {
+        points = this.getConnectorPoints(
+          {
+            x: parseInt(arrowSource.x()) + offsetSource,
+            y: parseInt(arrowSource.y()) + offsetSource,
+          },
+          {
+            x: parseInt(this.layerChildren[i].x()) + offsetDest,
+            y: parseInt(this.layerChildren[i].y()) + offsetDest,
+          }
+        );
+      } else {
+        points = this.getConnectorPoints(
+          {
+            x: parseInt(this.layerChildren[i].x()) + offsetSource,
+            y: parseInt(this.layerChildren[i].y()) + offsetSource,
+          },
+          {
+            x: parseInt(arrowDest.x()) + offsetDest,
+            y: parseInt(arrowDest.y()) + offsetDest,
+          }
+        );
+      }
+      arrow.points(points);
+      const arcWeight = this.layerChildren.find(
+        (el) => el._id == this.arcs[j].labelId
+      );
+      arcWeight.x((points[2] + points[0]) / 2 - 10);
+      arcWeight.y((points[3] + points[1]) / 2 - 10);
     },
     getConnectorPoints(from, to) {
       const dx = to.x - from.x;

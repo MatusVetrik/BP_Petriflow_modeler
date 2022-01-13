@@ -102,8 +102,7 @@ export default {
         // points = [start[0], start[1], found.attrs.x + 20, found.attrs.y + 20];
         points = this.getConnectorPoints(
           { x: start[0], y: start[1] },
-          { x: found.attrs.x + 20, y: found.attrs.y + 20 },
-          true
+          { x: found.attrs.x + 20, y: found.attrs.y + 20 }
         );
       } else if (found instanceof Konva.Circle && this.start[0]) {
         // points = [start[0], start[1], found.attrs.x, found.attrs.y];
@@ -140,33 +139,18 @@ export default {
         });
       }
     },
-    getConnectorPoints(from, to, rect = false) {
+    getConnectorPoints(from, to) {
       const dx = to.x - from.x;
       const dy = to.y - from.y;
       let angle = Math.atan2(-dy, dx);
 
       const radius = 23;
-      let rectOffset = 0;
-      // if (rect) {
-      //   let x, y;
-      //   const angle2 = (Math.atan2(dy, dx) * 180) / Math.PI;
-      //   const cos = Math.cos(angle2);
-      //   const sin = Math.sin(angle2);
-      //   if (40 * Math.abs(sin) < 40 * Math.abs(cos)) {
-      //     x = Math.sign(cos) * 20;
-      //     y = Math.tan(angle2) * x;
-      //   } else {
-      //     x = Math.sign(sin) * 20;
-      //     y = (1 / Math.tan(angle2)) * y;
-      //   }
-      //   rectOffset = Math.sqrt(x ** 2 + y ** 2);
-      // }
-      rect;
+
       return [
-        from.x + -(radius + rectOffset) * Math.cos(angle + Math.PI),
-        from.y + (radius + rectOffset) * Math.sin(angle + Math.PI),
-        to.x + -(radius + rectOffset) * Math.cos(angle),
-        to.y + (radius + rectOffset) * Math.sin(angle),
+        from.x + -radius * Math.cos(angle + Math.PI),
+        from.y + radius * Math.sin(angle + Math.PI),
+        to.x + -radius * Math.cos(angle),
+        to.y + radius * Math.sin(angle),
       ];
     },
   },

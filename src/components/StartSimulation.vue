@@ -11,92 +11,108 @@ export default {
         src: require("../assets/icons/fire.svg"),
       },
       servedPlaces: [],
+      transtions: null,
+      places: null,
+      arcs: null,
     };
   },
   methods: {
     simulationProcess(event) {
       if (this.simulationClicked() && event.target instanceof Konva.Rect) {
-        const transitions = this.$store.state.transitions;
-        const places = this.$store.state.places;
-        const arcs = this.$store.state.arcs;
-        const target = transitions.find((el) => el.id === event.target._id);
-        const targetDestinantionBlank = arcs.find(
+        this.transitions = this.$store.state.transitions;
+        this.places = this.$store.state.places;
+        this.arcs = this.$store.state.arcs;
+        const target = this.transitions.find(
+          (el) => el.id === event.target._id
+        );
+        const targetDestinantionBlank = this.$store.state.arcs.find(
           (el) => el.destinationId === event.target._id
         );
         if (!targetDestinantionBlank) {
-          for (let i = 0; i < arcs.length; i++) {
-            if (arcs[i].sourceId === target.id) {
-              const sourcePlace = places.find(
-                (el) => el.id === arcs[i].destinationId
-              );
-              sourcePlace.tokens += arcs[i].multiplicity;
-
-              const labelForChange = this.$store.state.layer.children.find(
-                (el) => el._id === sourcePlace.tokenLabel
-              );
-              labelForChange.getText().text(sourcePlace.tokens);
-              labelForChange.visible(true);
-            }
-          }
+          this.destinationWithoutSource(target);
         } else {
           this.servedPlaces = [];
-          for (let i = 0; i < arcs.length; i++) {
-            if (arcs[i].destinationId === target.id) {
-              const sourcePlace = places.find(
-                (el) => el.id === arcs[i].sourceId
+          for (let i = 0; i < this.arcs.length; i++) {
+            if (this.arcs[i].destinationId === target.id) {
+              const sourcePlace = this.places.find(
+                (el) => el.id === this.arcs[i].sourceId
               );
               if (
                 sourcePlace.tokens > 0 &&
-                sourcePlace.tokens >= arcs[i].multiplicity
+                sourcePlace.tokens >= this.arcs[i].multiplicity
               ) {
-                sourcePlace.tokens -= arcs[i].multiplicity;
-
-                for (let j = 0; j < arcs.length; j++) {
-                  if (arcs[j].sourceId === target.id) {
-                    for (let k = 0; k < places.length; k++) {
-                      if (
-                        arcs[j].destinationId === places[k].id &&
-                        !this.servedPlaces.find((el) => el === places[k].id)
-                      ) {
-                        places[k].tokens += arcs[j].multiplicity;
-                        const labelForChange =
-                          this.$store.state.layer.children.find(
-                            (el) => el._id === places[k].tokenLabel
-                          );
-                        labelForChange.getText().text(places[k].tokens);
-                        labelForChange.visible(true);
-                        this.servedPlaces.push(places[k].id);
-                      }
-                    }
-                  }
-                }
-
-                const labelForChange = this.$store.state.layer.children.find(
-                  (el) => el._id === sourcePlace.tokenLabel
+                this.subtractSourceTokensAndAddToDestination(
+                  sourcePlace,
+                  target,
+                  i
                 );
-                if (sourcePlace.tokens === 0) {
-                  for (let i = 0; i < transitions.length; i++) {
-                    for (let j = 0; j < arcs.length; j++) {
-                      if (
-                        arcs[j].sourceId === sourcePlace.id &&
-                        arcs[j].destinationId === transitions[i].id
-                      ) {
-                        const foundEl = this.$store.state.layer.children.find(
-                          (el) => el._id === transitions[i].id
-                        );
-                        foundEl.fill("white");
-                      }
-                    }
-                  }
-                  // event.target.fill("white");
-                  labelForChange.getText().text("");
-                } else labelForChange.getText().text(sourcePlace.tokens);
               }
             }
           }
         }
         this.simulationRound();
       }
+    },
+    destinationWithoutSource(target) {
+      for (let i = 0; i < this.arcs.length; i++) {
+        if (this.arcs[i].sourceId === target.id) {
+          const sourcePlace = this.places.find(
+            (el) => el.id === this.arcs[i].destinationId
+          );
+          sourcePlace.tokens += this.arcs[i].multiplicity;
+
+          const labelForChange = this.$store.state.layer.children.find(
+            (el) => el._id === sourcePlace.tokenLabel
+          );
+          labelForChange.getText().text(sourcePlace.tokens);
+          labelForChange.visible(true);
+        }
+      }
+    },
+    subtractSourceTokensAndAddToDestination(sourcePlace, target, i) {
+      sourcePlace.tokens -= this.arcs[i].multiplicity;
+
+      for (let j = 0; j < this.arcs.length; j++) {
+        if (this.arcs[j].sourceId === target.id) {
+          for (let k = 0; k < this.places.length; k++) {
+            if (
+              this.arcs[j].destinationId === this.places[k].id &&
+              !this.servedPlaces.find((el) => el === this.places[k].id)
+            ) {
+              this.places[k].tokens += this.arcs[j].multiplicity;
+              const labelForChange = this.$store.state.layer.children.find(
+                (el) => el._id === this.places[k].tokenLabel
+              );
+              labelForChange.getText().text(this.places[k].tokens);
+              labelForChange.visible(true);
+              this.servedPlaces.push(this.places[k].id);
+            }
+          }
+        }
+      }
+
+      const labelForChange = this.$store.state.layer.children.find(
+        (el) => el._id === sourcePlace.tokenLabel
+      );
+      if (sourcePlace.tokens === 0) {
+        this.noTokensInPlace(sourcePlace, labelForChange);
+      } else labelForChange.getText().text(sourcePlace.tokens);
+    },
+    noTokensInPlace(sourcePlace, labelForChange) {
+      for (let i = 0; i < this.transitions.length; i++) {
+        for (let j = 0; j < this.arcs.length; j++) {
+          if (
+            this.arcs[j].sourceId === sourcePlace.id &&
+            this.arcs[j].destinationId === this.transitions[i].id
+          ) {
+            const foundEl = this.$store.state.layer.children.find(
+              (el) => el._id === this.transitions[i].id
+            );
+            foundEl.fill("white");
+          }
+        }
+      }
+      labelForChange.getText().text("");
     },
     simulationRound() {
       if (this.$store.state.layer) {

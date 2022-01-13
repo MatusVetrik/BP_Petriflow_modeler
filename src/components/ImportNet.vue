@@ -124,23 +124,7 @@ export default {
               el.y === parseInt(endEl.y._text)
           );
         }
-        const arrow = new Konva.Arrow({
-          points: this.getConnectorPoints(
-            { x: parseInt(startElNew.x), y: parseInt(startElNew.y) },
-            { x: parseInt(endElNew.x), y: parseInt(endElNew.y) }
-          ),
-          stroke: "black",
-          strokeWidth: 2,
-          hitStrokeWidth: 10,
-          fill: "black",
-        });
-        arrow.on("mouseover touchstart", function () {
-          this.stroke("#00a2ec");
-        });
-        arrow.on("mouseout touchend", function () {
-          this.stroke("black");
-        });
-        this.$store.state.layer.add(arrow);
+        const arrow = this.createArrow(startElNew, endElNew);
 
         this.$store.dispatch("addArc", {
           layer: this.$store.state.layer,
@@ -154,6 +138,26 @@ export default {
             parseInt(this.arcs[i].multiplicity._text) > 1 ? true : false,
         });
       }
+    },
+    createArrow(startElNew, endElNew) {
+      const arrow = new Konva.Arrow({
+        points: this.getConnectorPoints(
+          { x: parseInt(startElNew.x), y: parseInt(startElNew.y) },
+          { x: parseInt(endElNew.x), y: parseInt(endElNew.y) }
+        ),
+        stroke: "black",
+        strokeWidth: 2,
+        hitStrokeWidth: 10,
+        fill: "black",
+      });
+      arrow.on("mouseover touchstart", function () {
+        this.stroke("#00a2ec");
+      });
+      arrow.on("mouseout touchend", function () {
+        this.stroke("black");
+      });
+      this.$store.state.layer.add(arrow);
+      return arrow;
     },
     getConnectorPoints(from, to) {
       const dx = to.x - from.x;
