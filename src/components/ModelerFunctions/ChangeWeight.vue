@@ -1,18 +1,11 @@
 <template>
-  <img :src="arcWeight.src" alt="Arc Weight" class="arc" />
+  <img src="@/assets/icons/arcweight.svg" alt="Arc Weight" class="arc" />
 </template>
 
 <script>
 import Konva from "konva";
 
 export default {
-  data() {
-    return {
-      arcWeight: {
-        src: require("../assets/icons/arcweight.svg"),
-      },
-    };
-  },
   methods: {
     changeArcWeight(event) {
       if (this.changeArcWeightClicked()) {

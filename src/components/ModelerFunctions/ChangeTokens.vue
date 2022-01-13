@@ -2,7 +2,7 @@
   <div>
     <div class="tooltip">
       <img
-        :src="addTokens.src"
+        src="@/assets/icons/addtokens.svg"
         alt="Add Token"
         @click="chooseAction('addTokens')"
         :style="
@@ -15,7 +15,7 @@
     </div>
     <div class="tooltip">
       <img
-        :src="removeTokens.src"
+        src="@/assets/icons/removetokens.svg"
         alt="Remove Token"
         @click="chooseAction('removeTokens')"
         :style="
@@ -31,16 +31,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      addTokens: {
-        src: require("../assets/icons/addtokens.svg"),
-      },
-      removeTokens: {
-        src: require("../assets/icons/removetokens.svg"),
-      },
-    };
-  },
   methods: {
     chooseAction(type) {
       this.$store.dispatch("clickOnPanel", {

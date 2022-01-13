@@ -1,5 +1,5 @@
 <template>
-  <img :src="move.src" alt="Move" @click="draggingObjects()" />
+  <img src="@/assets/icons/move.svg" alt="Move" @click="draggingObjects()" />
 </template>
 
 <script>
@@ -8,9 +8,6 @@ import Konva from "konva";
 export default {
   data() {
     return {
-      move: {
-        src: require("../assets/icons/move.svg"),
-      },
       layerChildren: null,
       arcs: null,
     };

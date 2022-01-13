@@ -2,7 +2,7 @@
   <div id="topBar">
     <div class="tooltip">
       <img
-        :src="transition.src"
+        src="@/assets/icons/transition.svg"
         alt="Transition"
         @click="chooseAction('transition')"
         :style="
@@ -15,7 +15,7 @@
     </div>
     <div class="tooltip">
       <img
-        :src="place.src"
+        src="@/assets/icons/place.svg"
         alt="Place"
         @click="chooseAction('place')"
         :style="
@@ -133,16 +133,16 @@
 </template>
 
 <script>
-import ChangeLabel from "./ChangeLabel.vue";
-import ChangeWeight from "./ChangeWeight.vue";
-import DeleteObject from "./DeleteObject.vue";
-import ChangeTokens from "./ChangeTokens.vue";
-import DrawArc from "./DrawArc.vue";
-import StartSimulation from "./StartSimulation.vue";
-import SaveNet from "./SaveNet.vue";
-import ImportNet from "./ImportNet.vue";
-import ClearCanvas from "./ClearCanvas.vue";
-import MoveElement from "./MoveElement.vue";
+import ChangeLabel from "./ModelerFunctions/ChangeLabel.vue";
+import ChangeWeight from "./ModelerFunctions/ChangeWeight.vue";
+import DeleteObject from "./ModelerFunctions/DeleteObject.vue";
+import ChangeTokens from "./ModelerFunctions/ChangeTokens.vue";
+import DrawArc from "./ModelerFunctions/DrawArc.vue";
+import StartSimulation from "./ModelerFunctions/StartSimulation.vue";
+import SaveNet from "./ModelerFunctions/SaveNet.vue";
+import ImportNet from "./ModelerFunctions/ImportNet.vue";
+import ClearCanvas from "./ModelerFunctions/ClearCanvas.vue";
+import MoveElement from "./ModelerFunctions/MoveElement.vue";
 
 export default {
   components: {
@@ -159,12 +159,6 @@ export default {
   },
   data() {
     return {
-      transition: {
-        src: require("../assets/icons/transition.svg"),
-      },
-      place: {
-        src: require("../assets/icons/place.svg"),
-      },
       clicked: this.$store.state.clicked.type,
     };
   },

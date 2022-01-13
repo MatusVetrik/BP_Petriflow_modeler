@@ -1,17 +1,10 @@
 <template>
-  <img :src="deleteNode.src" alt="Delete Node" />
+  <img src="@/assets/icons/delete.svg" alt="Delete Node" />
 </template>
 
 <script>
 import Konva from "konva";
 export default {
-  data() {
-    return {
-      deleteNode: {
-        src: require("../assets/icons/delete.svg"),
-      },
-    };
-  },
   methods: {
     deleteObject(event) {
       if (this.deleteObjectClicked()) {

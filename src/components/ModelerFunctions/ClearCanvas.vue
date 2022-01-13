@@ -1,16 +1,13 @@
 <template>
-  <img :src="clear.src" alt="Clear Canvas" @click="clearCanvas()" />
+  <img
+    src="@/assets/icons/clear.svg"
+    alt="Clear Canvas"
+    @click="clearCanvas()"
+  />
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      clear: {
-        src: require("../assets/icons/clear.svg"),
-      },
-    };
-  },
   methods: {
     clearCanvas() {
       const answer = window.confirm(

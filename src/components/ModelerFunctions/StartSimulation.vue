@@ -1,5 +1,5 @@
 <template>
-  <img :src="startSimulation.src" alt="Start Simulation" />
+  <img src="@/assets/icons/fire.svg" alt="Start Simulation" />
 </template>
 
 <script>
@@ -7,9 +7,6 @@ import Konva from "konva";
 export default {
   data() {
     return {
-      startSimulation: {
-        src: require("../assets/icons/fire.svg"),
-      },
       servedPlaces: [],
       transtions: null,
       places: null,

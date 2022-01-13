@@ -1,16 +1,9 @@
 <template>
-  <img :src="save.src" alt="Save" @click="downloadXML" />
+  <img src="@/assets/icons/save.svg" alt="Save" @click="downloadXML" />
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      save: {
-        src: require("../assets/icons/save.svg"),
-      },
-    };
-  },
   methods: {
     downloadJSON() {
       const title = prompt("Please enter file name:");

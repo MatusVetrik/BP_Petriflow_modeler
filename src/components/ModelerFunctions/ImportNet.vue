@@ -1,5 +1,5 @@
 <template>
-  <img :src="importFile.src" alt="Import" @click="importXML()" />
+  <img src="@/assets/icons/open.svg" alt="Import" @click="importXML()" />
 </template>
 
 <script>
@@ -8,9 +8,6 @@ import Konva from "konva";
 export default {
   data() {
     return {
-      importFile: {
-        src: require("../assets/icons/open.svg"),
-      },
       input: null,
       transitions: null,
       places: null,

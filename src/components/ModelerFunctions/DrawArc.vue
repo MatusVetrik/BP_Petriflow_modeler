@@ -1,5 +1,5 @@
 <template>
-  <img :src="arc.src" alt="Arc" class="arc" />
+  <img src="@/assets/icons/arc.svg" alt="Arc" class="arc" />
 </template>
 
 <script>
@@ -10,9 +10,6 @@ export default {
       arrow: null,
       start: [0, 0],
       startId: null,
-      arc: {
-        src: require("../assets/icons/arc.svg"),
-      },
       dragging: false,
     };
   },

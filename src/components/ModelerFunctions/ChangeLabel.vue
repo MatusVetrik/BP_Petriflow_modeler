@@ -1,16 +1,9 @@
 <template>
-  <img :src="changeLabelSrc.src" alt="Change Label" />
+  <img src="@/assets/icons/label.svg" alt="Change Label" />
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      changeLabelSrc: {
-        src: require("../assets/icons/label.svg"),
-      },
-    };
-  },
   methods: {
     changeLabel(event) {
       if (this.changeLabelClicked()) {
