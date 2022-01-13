@@ -31,7 +31,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   margin-top: -0.5rem;
-  width: 44.5rem;
+  width: 47.5rem;
   padding: 0.15rem;
   background-color: rgb(75, 195, 255);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);

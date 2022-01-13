@@ -11,7 +11,7 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Add Tokens</div>
+      <div class="tooltiptext">Add Token</div>
     </div>
     <div class="tooltip">
       <img
@@ -24,7 +24,20 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Remove Tokens</div>
+      <div class="tooltiptext">Remove Token</div>
+    </div>
+    <div class="tooltip">
+      <img
+        src="@/assets/icons/marking.svg"
+        alt="Change Marking"
+        @click="chooseAction('changeMarking')"
+        :style="
+          this.$store.state.clicked.type === 'changeMarking'
+            ? { 'border-color': 'black' }
+            : { 'border-color': 'white' }
+        "
+      />
+      <div class="tooltiptext">Change Marking</div>
     </div>
   </div>
 </template>
@@ -49,6 +62,9 @@ export default {
             changingDestination.tokens++;
           } else if (this.changeTokensClicked() === "remove") {
             if (changingDestination.tokens > 0) changingDestination.tokens--;
+          } else if (this.changeTokensClicked() === "change") {
+            const value = window.prompt("Please enter place positive marking:");
+            changingDestination.tokens = parseInt(value);
           }
           const labelForChange = event.target.parent.children.find(
             (el) => el._id === changingDestination.tokenLabel
@@ -67,6 +83,9 @@ export default {
       if (this.$store.state.clicked.type === "addTokens") return "add";
       else if (this.$store.state.clicked.type === "removeTokens")
         return "remove";
+      else if (this.$store.state.clicked.type === "changeMarking") {
+        return "change";
+      }
       return 0;
     },
   },
