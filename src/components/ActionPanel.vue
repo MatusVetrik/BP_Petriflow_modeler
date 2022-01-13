@@ -1,6 +1,6 @@
 <template>
   <div id="topBar">
-    <panel-tooltip text="Transtition">
+    <panel-tooltip text="Transition">
       <img
         src="@/assets/icons/transition.svg"
         alt="Transition"

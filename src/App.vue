@@ -20,9 +20,6 @@ export default {
     MyCanvas,
     ActionPanel,
   },
-  data() {
-    return {};
-  },
 };
 </script>
 
