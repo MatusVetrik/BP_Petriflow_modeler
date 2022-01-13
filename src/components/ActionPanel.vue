@@ -1,6 +1,6 @@
 <template>
   <div id="topBar">
-    <div class="tooltip">
+    <panel-tooltip text="Transtition">
       <img
         src="@/assets/icons/transition.svg"
         alt="Transition"
@@ -11,9 +11,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Transition</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Place">
       <img
         src="@/assets/icons/place.svg"
         alt="Place"
@@ -24,10 +23,9 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Place</div>
-    </div>
+    </panel-tooltip>
     <change-tokens @click="clearSimulationMode()" />
-    <div class="tooltip">
+    <panel-tooltip text="Change Label">
       <change-label
         @click="chooseAction('change')"
         :style="
@@ -36,9 +34,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Label</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Arc">
       <draw-arc
         @click="chooseAction('arc')"
         :style="
@@ -47,9 +44,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Arc</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Arc Weight">
       <change-weight
         @click="chooseAction('arcWeight')"
         :style="
@@ -58,9 +54,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Arc Weight</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Delete">
       <delete-object
         @click="chooseAction('delete')"
         :style="
@@ -69,9 +64,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Delete</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Clear">
       <clear-canvas
         @click="chooseAction('clear')"
         :style="
@@ -80,9 +74,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Clear</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Move">
       <move-element
         @click="chooseAction('move')"
         :style="
@@ -92,9 +85,8 @@
         "
         ref="move"
       />
-      <div class="tooltiptext">Move</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Save XML">
       <save-net
         @click="chooseAction('save')"
         :style="
@@ -103,9 +95,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Save XML</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Load XML">
       <import-net
         @click="chooseAction('import')"
         :style="
@@ -114,9 +105,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Load XML</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Simulation">
       <start-simulation
         ref="simulationComponent"
         @mousedown="chooseAction('simulation')"
@@ -127,8 +117,7 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Simulation</div>
-    </div>
+    </panel-tooltip>
   </div>
 </template>
 
@@ -143,6 +132,7 @@ import SaveNet from "./ModelerFunctions/SaveNet.vue";
 import ImportNet from "./ModelerFunctions/ImportNet.vue";
 import ClearCanvas from "./ModelerFunctions/ClearCanvas.vue";
 import MoveElement from "./ModelerFunctions/MoveElement.vue";
+import PanelTooltip from "./UI/PanelTooltip.vue";
 
 export default {
   components: {
@@ -156,6 +146,7 @@ export default {
     ImportNet,
     ClearCanvas,
     MoveElement,
+    PanelTooltip,
   },
   data() {
     return {
@@ -208,37 +199,5 @@ img:hover {
   margin: 0.25rem;
   display: flex;
   justify-content: center;
-  /* flex-direction: column; */
-}
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  opacity: 0;
-  color: #000;
-  border-radius: 2rem;
-  padding: 5px;
-  font-size: 50%;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.432);
-  white-space: nowrap;
-
-  position: absolute;
-  z-index: 2;
-  top: 135%;
-  transition: 0.5s;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 0.7;
-  transform: scale(2);
-  border-radius: 10px;
 }
 </style>

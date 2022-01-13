@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tooltip">
+    <panel-tooltip text="Add Token">
       <img
         src="@/assets/icons/addtokens.svg"
         alt="Add Token"
@@ -11,9 +11,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Add Token</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Remove Token">
       <img
         src="@/assets/icons/removetokens.svg"
         alt="Remove Token"
@@ -24,9 +23,8 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Remove Token</div>
-    </div>
-    <div class="tooltip">
+    </panel-tooltip>
+    <panel-tooltip text="Change Marking">
       <img
         src="@/assets/icons/marking.svg"
         alt="Change Marking"
@@ -37,13 +35,14 @@
             : { 'border-color': 'white' }
         "
       />
-      <div class="tooltiptext">Change Marking</div>
-    </div>
+    </panel-tooltip>
   </div>
 </template>
 
 <script>
+import PanelTooltip from "../UI/PanelTooltip.vue";
 export default {
+  components: { PanelTooltip },
   methods: {
     chooseAction(type) {
       this.$store.dispatch("clickOnPanel", {
@@ -64,7 +63,7 @@ export default {
             if (changingDestination.tokens > 0) changingDestination.tokens--;
           } else if (this.changeTokensClicked() === "change") {
             const value = window.prompt("Please enter place positive marking:");
-            changingDestination.tokens = parseInt(value);
+            if (parseInt(value)) changingDestination.tokens = parseInt(value);
           }
           const labelForChange = event.target.parent.children.find(
             (el) => el._id === changingDestination.tokenLabel
@@ -100,7 +99,6 @@ export default {
 <style scoped>
 div {
   display: flex;
-  /* flex-direction: column; */
 }
 img {
   margin-bottom: 0.3rem;
