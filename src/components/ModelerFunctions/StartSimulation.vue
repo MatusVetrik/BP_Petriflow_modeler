@@ -91,7 +91,7 @@ export default {
       const labelForChange = this.$store.state.layer.children.find(
         (el) => el._id === sourcePlace.tokenLabel
       );
-      if (sourcePlace.tokens === 0) {
+      if (this.arcs[i].multiplicity > sourcePlace.tokens) {
         this.noTokensInPlace(sourcePlace, labelForChange);
       } else labelForChange.getText().text(sourcePlace.tokens);
     },
@@ -109,7 +109,9 @@ export default {
           }
         }
       }
-      labelForChange.getText().text("");
+      sourcePlace.tokens > 0
+        ? labelForChange.getText().text(sourcePlace.tokens)
+        : labelForChange.getText().text("");
     },
     simulationRound() {
       if (this.$store.state.layer) {

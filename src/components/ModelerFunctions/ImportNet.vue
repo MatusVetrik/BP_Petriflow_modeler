@@ -130,6 +130,7 @@ export default {
           end: parseInt(endElNew.id),
           startXY: { x: startElNew.x, y: startElNew.y },
           endXY: { x: endElNew.x, y: endElNew.y },
+          multiplicityLabel: parseInt(this.arcs[i].multiplicity._text),
           multiplicity: parseInt(this.arcs[i].multiplicity._text),
           labelVisibility:
             parseInt(this.arcs[i].multiplicity._text) > 1 ? true : false,
