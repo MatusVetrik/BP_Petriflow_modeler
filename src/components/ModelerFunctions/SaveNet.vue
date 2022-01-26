@@ -22,16 +22,16 @@ export default {
     downloadXML() {
       const title = prompt("Please enter file name:");
       if (title) {
-        const transitions = this.$store.state.transitions;
-        const places = this.$store.state.places;
-        const arcs = this.$store.state.arcs;
+        const transition = this.$store.state.transitions;
+        const place = this.$store.state.places;
+        const arc = this.$store.state.arcs;
         const o2x = require("object-to-xml");
         const obj = {
           '?xml version="1.0" encoding="UTF-8"?': null,
           document: {
-            transitions,
-            places,
-            arcs,
+            transition,
+            place,
+            arc,
           },
         };
         const a = document.createElement("a");

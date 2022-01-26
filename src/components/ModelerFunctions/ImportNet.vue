@@ -39,9 +39,9 @@ export default {
         });
         const arr = JSON.parse(doc);
 
-        this.transitions = arr.document.transitions;
-        this.places = arr.document.places;
-        this.arcs = arr.document.arcs;
+        this.transitions = arr.document.transition;
+        this.places = arr.document.place;
+        this.arcs = arr.document.arc;
         this.loadTransitions();
         this.loadPlaces();
         this.loadArcs();
