@@ -151,9 +151,9 @@ export default {
                   }
                 }
               }
-            }
-            if (otherPlaceWithoutMarks) {
-              break;
+              if (otherPlaceWithoutMarks) {
+                break;
+              }
             }
           }
         }
