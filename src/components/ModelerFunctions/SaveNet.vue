@@ -3,6 +3,8 @@
 </template>
 
 <script>
+// import { ExportService, PetriNet } from "@netgrif/petriflow";
+
 export default {
   methods: {
     downloadJSON() {
@@ -26,6 +28,9 @@ export default {
         const place = this.$store.state.places;
         const arc = this.$store.state.arcs;
         const o2x = require("object-to-xml");
+        // const net = new PetriNet();
+        // const xml = new ExportService().exportXml(net);
+        // console.log(xml);
         const obj = {
           '?xml version="1.0" encoding="UTF-8"?': null,
           document: {
