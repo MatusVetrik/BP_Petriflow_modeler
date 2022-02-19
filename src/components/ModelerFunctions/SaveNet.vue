@@ -3,8 +3,6 @@
 </template>
 
 <script>
-// import { ExportService, PetriNet } from "@netgrif/petriflow";
-
 export default {
   methods: {
     downloadJSON() {
@@ -28,16 +26,28 @@ export default {
         const place = this.$store.state.places;
         const arc = this.$store.state.arcs;
         const o2x = require("object-to-xml");
-        // const net = new PetriNet();
-        // const xml = new ExportService().exportXml(net);
-        // console.log(xml);
+        const petriInfo = {
+          id: "new_model",
+          initials: "NEW",
+          title: "New Model",
+          defaultRole: true,
+          transitionRole: false,
+        };
+
         const obj = {
           '?xml version="1.0" encoding="UTF-8"?': null,
-          document: {
-            transition,
-            place,
-            arc,
-          },
+          'document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://modeler.netgrif.com/petriflow_schema.xsd">':
+            {
+              ...petriInfo,
+              // "!-- TRANSACTIONS --": null,
+              // "!-- ROLES --": null,
+              // "!-- DATA --": null,
+              // "!-- I18NS --": null,
+              // "!-- TRANSITIONS --": null,
+              transition,
+              place,
+              arc,
+            },
         };
         const a = document.createElement("a");
         const file = new Blob([o2x(obj)], { type: "text/plain" });
