@@ -36,10 +36,9 @@ export default {
               );
               if (
                 sourcePlace.tokens > 0 &&
-                sourcePlace.tokens >= this.arcs[i].multiplicity
-                // && event.target.attrs.fill === "#22d481"
+                sourcePlace.tokens >= this.arcs[i].multiplicity &&
+                event.target.attrs.fill === "#22d481"
               ) {
-                console.log(event.target);
                 this.subtractSourceTokensAndAddToDestination(
                   sourcePlace,
                   target,
@@ -120,8 +119,10 @@ export default {
         const transitions = this.$store.state.transitions;
         const places = this.$store.state.places;
         const arcs = this.$store.state.arcs;
+
+        console.log({ transitions, places, arcs });
+
         for (let i = 0; i < transitions.length; i++) {
-          let otherPlaceWithoutMarks = false;
           for (let j = 0; j < arcs.length; j++) {
             if (arcs[j].sourceId === transitions[i].id) {
               const destinationArcFound = arcs.find(
@@ -146,13 +147,9 @@ export default {
                     object.fill("#22d481");
                   } else {
                     object.fill("#ffffff");
-                    otherPlaceWithoutMarks = true;
                     break;
                   }
                 }
-              }
-              if (otherPlaceWithoutMarks) {
-                break;
               }
             }
           }

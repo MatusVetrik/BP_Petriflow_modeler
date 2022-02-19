@@ -78,10 +78,10 @@ export default {
           tokens: parseInt(this.places[i].tokens._text),
           visibility: parseInt(this.places[i].tokens._text) > 0 ? true : false,
         });
+        console.log(this.places[i].label._text);
       }
     },
     loadArcs() {
-      console.log("Arcs");
       for (let i = 0; i < this.arcs.length; i++) {
         let startEl = this.transitions.find(
           (el) => el.id._text === this.arcs[i].sourceId._text
@@ -108,6 +108,7 @@ export default {
         );
         let endElNew;
         if (!endEl) {
+          console.log(this.places);
           endEl = this.places.find(
             (el) => el.id._text === this.arcs[i].destinationId._text
           );

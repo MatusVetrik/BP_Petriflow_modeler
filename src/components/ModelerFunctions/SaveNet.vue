@@ -36,14 +36,9 @@ export default {
 
         const obj = {
           '?xml version="1.0" encoding="UTF-8"?': null,
-          'document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://modeler.netgrif.com/petriflow_schema.xsd">':
+          'document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://modeler.netgrif.com/petriflow_schema.xsd"':
             {
               ...petriInfo,
-              // "!-- TRANSACTIONS --": null,
-              // "!-- ROLES --": null,
-              // "!-- DATA --": null,
-              // "!-- I18NS --": null,
-              // "!-- TRANSITIONS --": null,
               transition,
               place,
               arc,

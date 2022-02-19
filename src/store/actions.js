@@ -22,9 +22,9 @@ export default {
       payload.event.clientY,
       payload.label,
       -50,
-      20,
+      25,
       100,
-      payload.visibility
+      true
     );
     // transition._id = new Date().getTime();
     payload.layer.add(label);
@@ -60,9 +60,9 @@ export default {
       payload.event.clientY,
       payload.label,
       -50,
-      20,
+      25,
       100,
-      payload.visibility
+      true
     );
     payload.layer.add(labelTokens);
     payload.layer.add(labelTag);
