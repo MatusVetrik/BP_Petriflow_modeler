@@ -39,8 +39,6 @@ export default {
         });
         const arr = JSON.parse(doc);
 
-        console.log(arr);
-
         this.transitions = arr.document.transition;
         this.places = arr.document.place;
         this.arcs = arr.document.arc;
@@ -78,7 +76,6 @@ export default {
           tokens: parseInt(this.places[i].tokens._text),
           visibility: parseInt(this.places[i].tokens._text) > 0 ? true : false,
         });
-        console.log(this.places[i].label._text);
       }
     },
     loadArcs() {
@@ -108,7 +105,6 @@ export default {
         );
         let endElNew;
         if (!endEl) {
-          console.log(this.places);
           endEl = this.places.find(
             (el) => el.id._text === this.arcs[i].destinationId._text
           );

@@ -120,8 +120,6 @@ export default {
         const places = this.$store.state.places;
         const arcs = this.$store.state.arcs;
 
-        console.log({ transitions, places, arcs });
-
         for (let i = 0; i < transitions.length; i++) {
           for (let j = 0; j < arcs.length; j++) {
             if (arcs[j].sourceId === transitions[i].id) {
