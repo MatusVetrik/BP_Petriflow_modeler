@@ -7,8 +7,11 @@
         @click="chooseAction('transition')"
         :style="
           this.$store.state.clicked.type === 'transition'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -19,8 +22,11 @@
         @click="chooseAction('place')"
         :style="
           this.$store.state.clicked.type === 'place'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -30,8 +36,11 @@
         @click="chooseAction('change')"
         :style="
           this.$store.state.clicked.type === 'change'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -40,8 +49,11 @@
         @click="chooseAction('arc')"
         :style="
           this.$store.state.clicked.type === 'arc'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -50,8 +62,11 @@
         @click="chooseAction('arcWeight')"
         :style="
           this.$store.state.clicked.type === 'arcWeight'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -60,8 +75,11 @@
         @click="chooseAction('delete')"
         :style="
           this.$store.state.clicked.type === 'delete'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -70,8 +88,11 @@
         @click="chooseAction('clear')"
         :style="
           this.$store.state.clicked.type === 'clear'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -80,8 +101,11 @@
         @click="chooseAction('move')"
         :style="
           this.$store.state.clicked.type === 'move'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
         ref="move"
       />
@@ -91,8 +115,11 @@
         @click="chooseAction('save')"
         :style="
           this.$store.state.clicked.type === 'save'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -101,8 +128,11 @@
         @click="chooseAction('import')"
         :style="
           this.$store.state.clicked.type === 'import'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -113,8 +143,11 @@
         @click="$refs.simulationComponent.simulationRound()"
         :style="
           this.$store.state.clicked.type === 'simulation'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -182,21 +215,24 @@ export default {
 <style>
 img {
   width: 1.4rem;
+  height: 1.6rem;
   border: solid 3px white;
   padding: 0.5rem;
-  margin: 0.15rem;
-  border-radius: 1rem;
+  margin: 0.3rem;
+  margin-top: 0;
+  border-radius: 0 0 0.2rem 0.2rem;
   transition: 0.2s;
   background-color: white;
 }
 
 img:hover {
-  transform: scale(1.15);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transform: scale(1.1) translateY(7px) !important;
+  box-shadow: 0 2px 8px rgba(255, 0, 0, 0.4);
 }
 
 #topBar {
-  margin: 0.25rem;
+  margin: 0.4rem;
+  margin-top: 0;
   display: flex;
   justify-content: center;
 }

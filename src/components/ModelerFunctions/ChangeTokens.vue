@@ -7,8 +7,11 @@
         @click="chooseAction('addTokens')"
         :style="
           this.$store.state.clicked.type === 'addTokens'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -19,8 +22,11 @@
         @click="chooseAction('removeTokens')"
         :style="
           this.$store.state.clicked.type === 'removeTokens'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -31,8 +37,11 @@
         @click="chooseAction('changeMarking')"
         :style="
           this.$store.state.clicked.type === 'changeMarking'
-            ? { 'border-color': 'black' }
-            : { 'border-color': 'white' }
+            ? {
+                transform: 'scale(1.1) translateY(7px)',
+                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
+              }
+            : { transform: 'scale(1) translateY(0)' }
         "
       />
     </panel-tooltip>
@@ -101,6 +110,6 @@ div {
   display: flex;
 }
 img {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.15rem;
 }
 </style>

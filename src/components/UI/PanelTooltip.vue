@@ -27,19 +27,17 @@ export default {
   border-radius: 2rem;
   padding: 5px;
   font-size: 50%;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.432);
   white-space: nowrap;
 
   position: absolute;
   z-index: 2;
-  top: 135%;
+  top: 130%;
   transition: 0.5s;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-  opacity: 0.7;
-  transform: scale(2);
-  border-radius: 10px;
+  opacity: 0.6;
+  transform: scale(1.9);
 }
 </style>
