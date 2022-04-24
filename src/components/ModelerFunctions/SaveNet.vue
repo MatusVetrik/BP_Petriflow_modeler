@@ -13,7 +13,7 @@ export default {
         const arcs = this.$store.state.arcs;
         const mergedJSON = JSON.stringify(transitions.concat(places, arcs));
         const a = document.createElement("a");
-        const file = new Blob([mergedJSON], { type: "text/plain" });
+        const file = new Blob([mergedJSON], {type: "text/plain"});
         a.href = URL.createObjectURL(file);
         a.download = title;
         a.click();
@@ -22,9 +22,9 @@ export default {
     downloadXML() {
       const title = prompt("Please enter file name:");
       if (title) {
-        const transition = this.$store.state.transitions;
-        const place = this.$store.state.places;
-        const arc = this.$store.state.arcs;
+        const rawTransitions = this.$store.state.transitions;
+        const rawPlaces = this.$store.state.places;
+        const rawArcs = this.$store.state.arcs;
         const o2x = require("object-to-xml");
         const petriInfo = {
           id: "new_model",
@@ -33,6 +33,36 @@ export default {
           defaultRole: true,
           transitionRole: false,
         };
+
+        const transition = rawTransitions.map((el) => {
+          return {
+            id: el.id,
+            x: el.x,
+            y: el.y,
+            label: el.label,
+          };
+        });
+
+        const place = rawPlaces.map((el) => {
+          return {
+            id: el.id,
+            x: el.x,
+            y: el.y,
+            label: el.label,
+            tokens: el.tokens,
+            static: el.static,
+          };
+        });
+
+        const arc = rawArcs.map((el) => {
+          return {
+            id: el.id,
+            type: el.type,
+            sourceId: el.sourceId,
+            destinationId: el.destinationId,
+            multiplicity: el.multiplicity,
+          };
+        });
 
         const obj = {
           '?xml version="1.0" encoding="UTF-8"?': null,
@@ -45,7 +75,7 @@ export default {
             },
         };
         const a = document.createElement("a");
-        const file = new Blob([o2x(obj)], { type: "text/plain" });
+        const file = new Blob([o2x(obj)], {type: "text/plain"});
         a.href = URL.createObjectURL(file);
         a.download = title;
         a.click();

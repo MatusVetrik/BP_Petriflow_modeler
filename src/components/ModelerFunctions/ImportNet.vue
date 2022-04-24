@@ -4,6 +4,7 @@
 
 <script>
 import Konva from "konva";
+import {getConnectorPoints} from "../helper/helperFunctions.js";
 
 export default {
   data() {
@@ -42,9 +43,12 @@ export default {
         this.transitions = arr.document.transition;
         this.places = arr.document.place;
         this.arcs = arr.document.arc;
-        this.loadTransitions();
-        this.loadPlaces();
-        this.loadArcs();
+
+        console.log(this.transitions, this.places, this.arcs);
+
+        if (this.transitions) this.loadTransitions();
+        if (this.places) this.loadPlaces();
+        if (this.arcs) this.loadArcs();
       };
       reader.readAsText(data);
       this.$store.state.layer.destroyChildren();
@@ -127,8 +131,8 @@ export default {
           id: arrow._id,
           start: parseInt(startElNew.id),
           end: parseInt(endElNew.id),
-          startXY: { x: startElNew.x, y: startElNew.y },
-          endXY: { x: endElNew.x, y: endElNew.y },
+          startXY: {x: startElNew.x, y: startElNew.y},
+          endXY: {x: endElNew.x, y: endElNew.y},
           multiplicityLabel: parseInt(this.arcs[i].multiplicity._text),
           multiplicity: parseInt(this.arcs[i].multiplicity._text),
           labelVisibility:
@@ -138,9 +142,9 @@ export default {
     },
     createArrow(startElNew, endElNew) {
       const arrow = new Konva.Arrow({
-        points: this.getConnectorPoints(
-          { x: parseInt(startElNew.x), y: parseInt(startElNew.y) },
-          { x: parseInt(endElNew.x), y: parseInt(endElNew.y) }
+        points: getConnectorPoints(
+          {x: parseInt(startElNew.x), y: parseInt(startElNew.y)},
+          {x: parseInt(endElNew.x), y: parseInt(endElNew.y)}
         ),
         stroke: "black",
         strokeWidth: 2,
@@ -155,20 +159,6 @@ export default {
       });
       this.$store.state.layer.add(arrow);
       return arrow;
-    },
-    getConnectorPoints(from, to) {
-      const dx = to.x - from.x;
-      const dy = to.y - from.y;
-      let angle = Math.atan2(-dy, dx);
-
-      const radius = 23;
-
-      return [
-        from.x + -radius * Math.cos(angle + Math.PI),
-        from.y + radius * Math.sin(angle + Math.PI),
-        to.x + -radius * Math.cos(angle),
-        to.y + radius * Math.sin(angle),
-      ];
     },
   },
 };

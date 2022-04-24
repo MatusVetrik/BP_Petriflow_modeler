@@ -4,6 +4,11 @@
 
 <script>
 import Konva from "konva";
+import {
+  getConnectorPoints,
+  whatOperationWasClicked,
+} from "../helper/helperFunctions";
+
 export default {
   data() {
     return {
@@ -14,12 +19,11 @@ export default {
     };
   },
   methods: {
-    drawLine() {
-      if (this.$store.state.clicked.type === "arc") return 1;
-      return 0;
-    },
     mouseDown(event) {
-      if (this.drawLine() && !this.dragging) {
+      if (
+        whatOperationWasClicked(this.$store.state.clicked.type, "arc") &&
+        !this.dragging
+      ) {
         const transitions = this.$store.state.transitions;
         const places = this.$store.state.places;
         this.start[0] = transitions.find((el) => el.id === event.target._id);
@@ -45,7 +49,7 @@ export default {
       if (
         this.arrow &&
         (this.start[0] || this.start[1]) &&
-        this.drawLine() &&
+        whatOperationWasClicked(this.$store.state.clicked.type, "arc") &&
         this.dragging
       ) {
         const pos = this.$store.state.stage.getPointerPosition();
@@ -60,7 +64,10 @@ export default {
       }
     },
     mouseUp(event) {
-      if (this.drawLine() && this.dragging) {
+      if (
+        whatOperationWasClicked(this.$store.state.clicked.type, "arc") &&
+        this.dragging
+      ) {
         if (this.arrow) this.checkObjects(event.target);
         this.arrow = null;
         this.startId = null;
@@ -97,15 +104,15 @@ export default {
       let points;
       if (found instanceof Konva.Rect && this.start[1]) {
         // points = [start[0], start[1], found.attrs.x + 20, found.attrs.y + 20];
-        points = this.getConnectorPoints(
-          { x: start[0], y: start[1] },
-          { x: found.attrs.x + 20, y: found.attrs.y + 20 }
+        points = getConnectorPoints(
+          {x: start[0], y: start[1]},
+          {x: found.attrs.x + 20, y: found.attrs.y + 20}
         );
       } else if (found instanceof Konva.Circle && this.start[0]) {
         // points = [start[0], start[1], found.attrs.x, found.attrs.y];
-        points = this.getConnectorPoints(
-          { x: start[0], y: start[1] },
-          { x: found.attrs.x, y: found.attrs.y }
+        points = getConnectorPoints(
+          {x: start[0], y: start[1]},
+          {x: found.attrs.x, y: found.attrs.y}
         );
       }
       this.arrow.points(points);
@@ -135,20 +142,6 @@ export default {
           multiplicity: 1,
         });
       }
-    },
-    getConnectorPoints(from, to) {
-      const dx = to.x - from.x;
-      const dy = to.y - from.y;
-      let angle = Math.atan2(-dy, dx);
-
-      const radius = 23;
-
-      return [
-        from.x + -radius * Math.cos(angle + Math.PI),
-        from.y + radius * Math.sin(angle + Math.PI),
-        to.x + -radius * Math.cos(angle),
-        to.y + radius * Math.sin(angle),
-      ];
     },
   },
   mounted() {

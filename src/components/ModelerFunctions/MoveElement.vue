@@ -4,6 +4,7 @@
 
 <script>
 import Konva from "konva";
+import {getConnectorPoints} from "../helper/helperFunctions";
 
 export default {
   data() {
@@ -84,7 +85,7 @@ export default {
       }
       let points;
       if (isDestination) {
-        points = this.getConnectorPoints(
+        points = getConnectorPoints(
           {
             x: parseInt(arrowSource.x()) + offsetSource,
             y: parseInt(arrowSource.y()) + offsetSource,
@@ -95,7 +96,7 @@ export default {
           }
         );
       } else {
-        points = this.getConnectorPoints(
+        points = getConnectorPoints(
           {
             x: parseInt(this.layerChildren[i].x()) + offsetSource,
             y: parseInt(this.layerChildren[i].y()) + offsetSource,
@@ -112,19 +113,6 @@ export default {
       );
       arcWeight.x((points[2] + points[0]) / 2 - 10);
       arcWeight.y((points[3] + points[1]) / 2 - 10);
-    },
-    getConnectorPoints(from, to) {
-      const dx = to.x - from.x;
-      const dy = to.y - from.y;
-      let angle = Math.atan2(-dy, dx);
-
-      const radius = 23;
-      return [
-        from.x + -radius * Math.cos(angle + Math.PI),
-        from.y + radius * Math.sin(angle + Math.PI),
-        to.x + -radius * Math.cos(angle),
-        to.y + radius * Math.sin(angle),
-      ];
     },
     draggingDisabled() {
       const layerChildren = this.$store.state.layer.children;

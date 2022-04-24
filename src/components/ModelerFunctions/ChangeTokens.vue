@@ -11,7 +11,7 @@
                 transform: 'scale(1.1) translateY(7px)',
                 'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
               }
-            : { transform: 'scale(1) translateY(0)' }
+            : {transform: 'scale(1) translateY(0)'}
         "
       />
     </panel-tooltip>
@@ -26,7 +26,7 @@
                 transform: 'scale(1.1) translateY(7px)',
                 'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
               }
-            : { transform: 'scale(1) translateY(0)' }
+            : {transform: 'scale(1) translateY(0)'}
         "
       />
     </panel-tooltip>
@@ -41,7 +41,7 @@
                 transform: 'scale(1.1) translateY(7px)',
                 'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
               }
-            : { transform: 'scale(1) translateY(0)' }
+            : {transform: 'scale(1) translateY(0)'}
         "
       />
     </panel-tooltip>
@@ -50,14 +50,15 @@
 
 <script>
 import PanelTooltip from "../UI/PanelTooltip.vue";
+import {reactToActivatedOperation} from "../helper/helperFunctions";
+
 export default {
-  components: { PanelTooltip },
+  components: {PanelTooltip},
   methods: {
     chooseAction(type) {
       this.$store.dispatch("clickOnPanel", {
         type: type,
       });
-      //   this.clearSimulationMode();
     },
     changeTokens(event) {
       if (this.changeTokensClicked != 0) {
@@ -98,9 +99,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.state.stage.on("mousedown", (event) => {
-      this.changeTokens(event);
-    });
+    reactToActivatedOperation(this.$store.state.stage, this.changeTokens);
   },
 };
 </script>

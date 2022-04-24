@@ -3,10 +3,15 @@
 </template>
 
 <script>
+import {
+  reactToActivatedOperation,
+  whatOperationWasClicked,
+} from "../helper/helperFunctions";
+
 export default {
   methods: {
     changeLabel(event) {
-      if (this.changeLabelClicked()) {
+      if (whatOperationWasClicked(this.$store.state.clicked.type, "change")) {
         const transitions = this.$store.state.transitions;
         const trans = transitions.find((el) => el.id === event.target._id);
         const places = this.$store.state.places;
@@ -30,15 +35,9 @@ export default {
         }
       }
     },
-    changeLabelClicked() {
-      if (this.$store.state.clicked.type === "change") return 1;
-      return 0;
-    },
   },
   mounted() {
-    this.$store.state.stage.on("mousedown", (event) => {
-      this.changeLabel(event);
-    });
+    reactToActivatedOperation(this.$store.state.stage, this.changeLabel);
   },
 };
 </script>

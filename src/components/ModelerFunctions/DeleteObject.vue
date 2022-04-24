@@ -4,10 +4,15 @@
 
 <script>
 import Konva from "konva";
+import {
+  whatOperationWasClicked,
+  reactToActivatedOperation,
+} from "../helper/helperFunctions";
+
 export default {
   methods: {
     deleteObject(event) {
-      if (this.deleteObjectClicked()) {
+      if (whatOperationWasClicked(this.$store.state.clicked.type, "delete")) {
         const object = this.$store.state.layer.children.find(
           (el) => el._id === event.target._id
         );
@@ -35,10 +40,6 @@ export default {
           object.destroy();
         }
       }
-    },
-    deleteObjectClicked() {
-      if (this.$store.state.clicked.type === "delete") return 1;
-      return 0;
     },
     deleteTransition(event) {
       let transObj = this.$store.state.transitions.find(
@@ -108,9 +109,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.state.stage.on("mousedown", (event) => {
-      this.deleteObject(event);
-    });
+    reactToActivatedOperation(this.$store.state.stage, this.deleteObject);
   },
 };
 </script>

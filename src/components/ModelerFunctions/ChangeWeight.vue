@@ -4,11 +4,17 @@
 
 <script>
 import Konva from "konva";
+import {
+  whatOperationWasClicked,
+  reactToActivatedOperation,
+} from "../helper/helperFunctions";
 
 export default {
   methods: {
     changeArcWeight(event) {
-      if (this.changeArcWeightClicked()) {
+      if (
+        whatOperationWasClicked(this.$store.state.clicked.type, "arcWeight")
+      ) {
         let isLabel = false;
         let labelForChange;
         const arcs = this.$store.state.arcs;
@@ -38,15 +44,9 @@ export default {
         }
       }
     },
-    changeArcWeightClicked() {
-      if (this.$store.state.clicked.type === "arcWeight") return 1;
-      return 0;
-    },
   },
   mounted() {
-    this.$store.state.stage.on("mousedown", (event) => {
-      this.changeArcWeight(event);
-    });
+    reactToActivatedOperation(this.$store.state.stage, this.changeArcWeight);
   },
 };
 </script>

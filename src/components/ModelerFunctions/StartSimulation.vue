@@ -4,6 +4,11 @@
 
 <script>
 import Konva from "konva";
+import {
+  whatOperationWasClicked,
+  reactToActivatedOperation,
+} from "../helper/helperFunctions";
+
 export default {
   data() {
     return {
@@ -15,7 +20,10 @@ export default {
   },
   methods: {
     simulationProcess(event) {
-      if (this.simulationClicked() && event.target instanceof Konva.Rect) {
+      if (
+        whatOperationWasClicked(this.$store.state.clicked.type, "simulation") &&
+        event.target instanceof Konva.Rect
+      ) {
         this.transitions = this.$store.state.transitions;
         this.places = this.$store.state.places;
         this.arcs = this.$store.state.arcs;
@@ -154,15 +162,9 @@ export default {
         }
       }
     },
-    simulationClicked() {
-      if (this.$store.state.clicked.type === "simulation") return true;
-      return false;
-    },
   },
   mounted() {
-    this.$store.state.stage.on("mousedown", (event) => {
-      this.simulationProcess(event);
-    });
+    reactToActivatedOperation(this.$store.state.stage, this.simulationProcess);
   },
 };
 </script>
