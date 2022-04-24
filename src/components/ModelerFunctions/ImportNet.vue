@@ -40,15 +40,22 @@ export default {
         });
         const arr = JSON.parse(doc);
 
-        this.transitions = arr.document.transition;
-        this.places = arr.document.place;
-        this.arcs = arr.document.arc;
+        this.transitions =
+          arr.document.transition && arr.document.transition.length
+            ? new Array(...arr.document.transition)
+            : new Array(arr.document.transition);
+        this.places =
+          arr.document.place && arr.document.place.length
+            ? new Array(...arr.document.place)
+            : new Array(arr.document.place);
+        this.arcs =
+          arr.document.arc && arr.document.arc.length
+            ? new Array(...arr.document.arc)
+            : new Array(arr.document.arc);
 
-        console.log(this.transitions, this.places, this.arcs);
-
-        if (this.transitions) this.loadTransitions();
-        if (this.places) this.loadPlaces();
-        if (this.arcs) this.loadArcs();
+        if (this.transitions[0]) this.loadTransitions();
+        if (this.places[0]) this.loadPlaces();
+        if (this.arcs[0]) this.loadArcs();
       };
       reader.readAsText(data);
       this.$store.state.layer.destroyChildren();
