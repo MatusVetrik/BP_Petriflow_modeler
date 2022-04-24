@@ -1,4 +1,4 @@
-import { createStore } from "vuex";
+import {createStore} from "vuex";
 
 import actions from "./actions";
 import mutations from "./mutations";
