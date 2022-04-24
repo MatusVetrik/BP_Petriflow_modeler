@@ -5,14 +5,7 @@
         src="@/assets/icons/transition.svg"
         alt="Transition"
         @click="chooseAction('transition')"
-        :style="
-          this.$store.state.clicked.type === 'transition'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('transition') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Place">
@@ -20,120 +13,57 @@
         src="@/assets/icons/place.svg"
         alt="Place"
         @click="chooseAction('place')"
-        :style="
-          this.$store.state.clicked.type === 'place'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('place') ? activated : deactived"
       />
     </panel-tooltip>
     <change-tokens @click="clearSimulationMode()" />
     <panel-tooltip text="Change Label">
       <change-label
         @click="chooseAction('change')"
-        :style="
-          this.$store.state.clicked.type === 'change'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('change') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Arc">
       <draw-arc
         @click="chooseAction('arc')"
-        :style="
-          this.$store.state.clicked.type === 'arc'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('arc') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Arc Weight">
       <change-weight
         @click="chooseAction('arcWeight')"
-        :style="
-          this.$store.state.clicked.type === 'arcWeight'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('arcWeight') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Delete">
       <delete-object
         @click="chooseAction('delete')"
-        :style="
-          this.$store.state.clicked.type === 'delete'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('delete') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Clear">
       <clear-canvas
         @click="chooseAction('clear')"
-        :style="
-          this.$store.state.clicked.type === 'clear'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('clear') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Move">
       <move-element
         @click="chooseAction('move')"
-        :style="
-          this.$store.state.clicked.type === 'move'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('move') ? activated : deactived"
         ref="move"
       />
     </panel-tooltip>
     <panel-tooltip text="Save XML">
       <save-net
         @click="chooseAction('save')"
-        :style="
-          this.$store.state.clicked.type === 'save'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('save') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Load XML">
       <import-net
         @click="chooseAction('import')"
-        :style="
-          this.$store.state.clicked.type === 'import'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('import') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Simulation">
@@ -141,14 +71,7 @@
         ref="simulationComponent"
         @mousedown="chooseAction('simulation')"
         @click="$refs.simulationComponent.simulationRound()"
-        :style="
-          this.$store.state.clicked.type === 'simulation'
-            ? {
-                transform: 'scale(1.1) translateY(7px)',
-                'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.4)',
-              }
-            : { transform: 'scale(1) translateY(0)' }
-        "
+        :style="isActivated('simulation') ? activated : deactived"
       />
     </panel-tooltip>
   </div>
@@ -184,6 +107,11 @@ export default {
   data() {
     return {
       clicked: this.$store.state.clicked.type,
+      activated: {
+        transform: "scale(1.1) translateY(7px)",
+        "box-shadow": "0 2px 8px rgba(0, 0, 0, 0.4)",
+      },
+      deactived: {transform: "scale(1) translateY(0)"},
     };
   },
   methods: {
@@ -207,6 +135,9 @@ export default {
     disableDragging() {
       if (this.$store.state.clicked.type !== "move")
         this.$refs.move.draggingDisabled();
+    },
+    isActivated(type) {
+      return this.$store.state.clicked.type === type;
     },
   },
 };

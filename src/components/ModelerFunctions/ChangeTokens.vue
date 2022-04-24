@@ -78,15 +78,19 @@ export default {
           const labelForChange = event.target.parent.children.find(
             (el) => el._id === changingDestination.tokenLabel
           );
-          if (changingDestination.tokens === 0) {
-            labelForChange.getText().text("");
-            labelForChange.visible(false);
-          } else {
-            labelForChange.getText().text(changingDestination.tokens);
-            labelForChange.visible(true);
-          }
+          changingDestination.tokens === 0
+            ? this.changeTokensLabel(labelForChange, "", false)
+            : this.changeTokensLabel(
+                labelForChange,
+                changingDestination.tokens,
+                true
+              );
         }
       }
+    },
+    changeTokensLabel(label, text, visibility) {
+      label.getText().text(text);
+      label.visible(visibility);
     },
     changeTokensClicked() {
       if (this.$store.state.clicked.type === "addTokens") return "add";

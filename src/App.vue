@@ -33,8 +33,6 @@ body {
   margin-top: -0.5rem;
   width: 48rem;
   padding: 0.15rem;
-  /* background-color: rgb(75, 195, 255); */
-  /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25); */
   border-radius: 0 0 4rem 4rem;
 }
 div {

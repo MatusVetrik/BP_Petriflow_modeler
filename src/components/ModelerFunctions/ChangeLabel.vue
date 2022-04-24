@@ -17,23 +17,21 @@ export default {
         const places = this.$store.state.places;
         const place = places.find((el) => el.id === event.target._id);
         if (trans) {
-          const value = window.prompt("Add label to transition: ");
-          trans.label = value;
-          const labelForChange = event.target.parent.children.find(
-            (el) => el._id === trans.labelId
-          );
-          labelForChange.getText().text(trans.label);
-          labelForChange.visible(true);
+          this.addLabelToObject(event, trans);
         } else if (place) {
-          const value = window.prompt("Add label to place: ");
-          place.label = value;
-          const labelForChange = event.target.parent.children.find(
-            (el) => el._id === place.labelId
-          );
-          labelForChange.getText().text(place.label);
-          labelForChange.visible(true);
+          this.addLabelToObject(event, place);
         }
       }
+    },
+    addLabelToObject(event, object) {
+      const value = window.prompt("Add label to object: ");
+      object.label = value;
+      const labelForChange = event.target.parent.children.find(
+        (el) => el._id === object.labelId
+      );
+      labelForChange.getText().text(object.label);
+      labelForChange.visible(true);
+      return 0;
     },
   },
   mounted() {

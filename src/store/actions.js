@@ -26,6 +26,7 @@ export default {
       100,
       true
     );
+    console.log("lable", payload.label);
     // transition._id = new Date().getTime();
     payload.layer.add(label);
     payload.layer.add(transition);
@@ -137,6 +138,7 @@ const addLabel = (
       fill: "white",
     })
   );
+  console.log("innerText", innerText);
   label.add(
     new Konva.Text({
       text: innerText,

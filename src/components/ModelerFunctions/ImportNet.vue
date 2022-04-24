@@ -40,6 +40,7 @@ export default {
         });
         const arr = JSON.parse(doc);
 
+        console.log(arr.document.transition);
         this.transitions =
           arr.document.transition && arr.document.transition.length
             ? new Array(...arr.document.transition)
@@ -99,16 +100,11 @@ export default {
           startEl = this.places.find(
             (el) => el.id._text === this.arcs[i].sourceId._text
           );
-          startElNew = this.$store.state.places.find(
-            (el) =>
-              el.x === parseInt(startEl.x._text) &&
-              el.y === parseInt(startEl.y._text)
-          );
+          startElNew = this.findNewElement(this.$store.state.places, startEl);
         } else {
-          startElNew = this.$store.state.transitions.find(
-            (el) =>
-              el.x === parseInt(startEl.x._text) &&
-              el.y === parseInt(startEl.y._text)
+          startElNew = this.findNewElement(
+            this.$store.state.transitions,
+            startEl
           );
         }
         let endEl = this.transitions.find(
@@ -119,17 +115,9 @@ export default {
           endEl = this.places.find(
             (el) => el.id._text === this.arcs[i].destinationId._text
           );
-          endElNew = this.$store.state.places.find(
-            (el) =>
-              el.x === parseInt(endEl.x._text) &&
-              el.y === parseInt(endEl.y._text)
-          );
+          endElNew = this.findNewElement(this.$store.state.places, endEl);
         } else {
-          endElNew = this.$store.state.transitions.find(
-            (el) =>
-              el.x === parseInt(endEl.x._text) &&
-              el.y === parseInt(endEl.y._text)
-          );
+          endElNew = this.findNewElement(this.$store.state.transitions, endEl);
         }
         const arrow = this.createArrow(startElNew, endElNew);
 
@@ -146,6 +134,15 @@ export default {
             parseInt(this.arcs[i].multiplicity._text) > 1 ? true : false,
         });
       }
+    },
+    findNewElement(objects, element) {
+      return objects.find((el) => this.isCorrectElement(el, element));
+    },
+    isCorrectElement(currentElement, element) {
+      return (
+        currentElement.x === parseInt(element.x._text) &&
+        currentElement.y === parseInt(element.y._text)
+      );
     },
     createArrow(startElNew, endElNew) {
       const arrow = new Konva.Arrow({
