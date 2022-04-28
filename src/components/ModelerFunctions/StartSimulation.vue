@@ -16,6 +16,8 @@ export default {
       transtions: null,
       places: null,
       arcs: null,
+      countSourcePlaces: 0,
+      servedSourcePlaces: 0,
     };
   },
   methods: {
@@ -30,6 +32,9 @@ export default {
         const target = this.transitions.find(
           (el) => el.id === event.target._id
         );
+        this.countSourcePlaces =
+          this.placesConnectedWithTransition(target).length;
+
         const targetDestinantionBlank = this.$store.state.arcs.find(
           (el) => el.destinationId === event.target._id
         );
@@ -43,7 +48,6 @@ export default {
                 (el) => el.id === this.arcs[i].sourceId
               );
               if (
-                sourcePlace.tokens > 0 &&
                 sourcePlace.tokens >= this.arcs[i].multiplicity &&
                 event.target.attrs.fill === "#22d481"
               ) {
@@ -77,6 +81,7 @@ export default {
     },
     subtractSourceTokensAndAddToDestination(sourcePlace, target, i) {
       sourcePlace.tokens -= this.arcs[i].multiplicity;
+      this.servedSourcePlaces++;
 
       for (let j = 0; j < this.arcs.length; j++) {
         if (this.arcs[j].sourceId === target.id) {
@@ -100,11 +105,17 @@ export default {
       const labelForChange = this.$store.state.layer.children.find(
         (el) => el._id === sourcePlace.tokenLabel
       );
-      if (this.arcs[i].multiplicity > sourcePlace.tokens) {
-        this.noTokensInPlace(sourcePlace, labelForChange);
-      } else labelForChange.getText().text(sourcePlace.tokens);
+      if (
+        this.arcs[i].multiplicity > sourcePlace.tokens &&
+        this.servedSourcePlaces === this.countSourcePlaces
+      ) {
+        this.noTokensInPlace(sourcePlace);
+      }
+      sourcePlace.tokens > 0
+        ? labelForChange.getText().text(sourcePlace.tokens)
+        : labelForChange.getText().text("");
     },
-    noTokensInPlace(sourcePlace, labelForChange) {
+    noTokensInPlace(sourcePlace) {
       for (let i = 0; i < this.transitions.length; i++) {
         for (let j = 0; j < this.arcs.length; j++) {
           if (
@@ -118,9 +129,12 @@ export default {
           }
         }
       }
-      sourcePlace.tokens > 0
-        ? labelForChange.getText().text(sourcePlace.tokens)
-        : labelForChange.getText().text("");
+    },
+    placesConnectedWithTransition(trans) {
+      const arcs = this.arcs
+        .map((el) => (el.destinationId === trans.id ? el : ""))
+        .filter(String);
+      return arcs;
     },
     simulationRound() {
       if (this.$store.state.layer) {
