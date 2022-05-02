@@ -46,13 +46,13 @@ export default {
       element.y = this.layerChildren[i].y();
       if (this.layerChildren[i] instanceof Konva.Rect) {
         elLabel.x(this.layerChildren[i].x() - 30);
-        elLabel.y(this.layerChildren[i].y() + 40);
+        elLabel.y(this.layerChildren[i].y() + 45);
       } else if (this.layerChildren[i] instanceof Konva.Circle) {
         const elTokenLabel = this.layerChildren.find(
           (el) => el._id == element.tokenLabel
         );
         elLabel.x(this.layerChildren[i].x() - 50);
-        elLabel.y(this.layerChildren[i].y() + 20);
+        elLabel.y(this.layerChildren[i].y() + 25);
         elTokenLabel.x(this.layerChildren[i].x() - 20);
         elTokenLabel.y(this.layerChildren[i].y() - 9);
       }
