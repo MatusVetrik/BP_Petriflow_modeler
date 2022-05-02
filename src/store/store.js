@@ -1,7 +1,7 @@
 import {createStore} from "vuex";
 
-import actions from "./actions";
-import mutations from "./mutations";
+import actions from "@/store/actions";
+import mutations from "@/store/mutations";
 
 const store = createStore({
   state() {

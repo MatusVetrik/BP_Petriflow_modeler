@@ -6,7 +6,7 @@
 import {
   reactToActivatedOperation,
   whatOperationWasClicked,
-} from "../helper/helperFunctions";
+} from "@/helper/helperFunctions";
 
 export default {
   methods: {

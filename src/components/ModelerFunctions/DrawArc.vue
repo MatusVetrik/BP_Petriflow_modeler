@@ -7,7 +7,7 @@ import Konva from "konva";
 import {
   getConnectorPoints,
   whatOperationWasClicked,
-} from "../helper/helperFunctions";
+} from "@/helper/helperFunctions";
 
 export default {
   data() {

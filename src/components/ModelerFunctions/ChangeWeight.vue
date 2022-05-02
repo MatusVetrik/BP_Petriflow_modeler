@@ -7,7 +7,7 @@ import Konva from "konva";
 import {
   whatOperationWasClicked,
   reactToActivatedOperation,
-} from "../helper/helperFunctions";
+} from "@/helper/helperFunctions";
 
 export default {
   methods: {

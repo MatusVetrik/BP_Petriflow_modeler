@@ -78,17 +78,17 @@
 </template>
 
 <script>
-import ChangeLabel from "./ModelerFunctions/ChangeLabel.vue";
-import ChangeWeight from "./ModelerFunctions/ChangeWeight.vue";
-import DeleteObject from "./ModelerFunctions/DeleteObject.vue";
-import ChangeTokens from "./ModelerFunctions/ChangeTokens.vue";
-import DrawArc from "./ModelerFunctions/DrawArc.vue";
-import StartSimulation from "./ModelerFunctions/StartSimulation.vue";
-import SaveNet from "./ModelerFunctions/SaveNet.vue";
-import ImportNet from "./ModelerFunctions/ImportNet.vue";
-import ClearCanvas from "./ModelerFunctions/ClearCanvas.vue";
-import MoveElement from "./ModelerFunctions/MoveElement.vue";
-import PanelTooltip from "./UI/PanelTooltip.vue";
+import ChangeLabel from "@/components/ModelerFunctions/ChangeLabel.vue";
+import ChangeWeight from "@/components/ModelerFunctions/ChangeWeight.vue";
+import DeleteObject from "@/components/ModelerFunctions/DeleteObject.vue";
+import ChangeTokens from "@/components/ModelerFunctions/ChangeTokens.vue";
+import DrawArc from "@/components/ModelerFunctions/DrawArc.vue";
+import StartSimulation from "@/components/ModelerFunctions/StartSimulation.vue";
+import SaveNet from "@/components/ModelerFunctions/SaveNet.vue";
+import ImportNet from "@/components/ModelerFunctions/ImportNet.vue";
+import ClearCanvas from "@/components/ModelerFunctions/ClearCanvas.vue";
+import MoveElement from "@/components/ModelerFunctions/MoveElement.vue";
+import PanelTooltip from "@/components/UI/PanelTooltip.vue";
 
 export default {
   components: {
