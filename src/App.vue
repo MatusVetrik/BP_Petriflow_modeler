@@ -31,9 +31,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-top: -0.5rem;
-  width: 48rem;
   padding: 0.15rem;
-  border-radius: 0 0 4rem 4rem;
 }
 div {
   font-family: "Roboto", sans-serif;
