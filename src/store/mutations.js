@@ -1,7 +1,4 @@
 export default {
-  setStage(state, payload) {
-    state.stage = payload;
-  },
   clickOnPanel(state, payload) {
     state.clicked = {
       url: payload.url,
