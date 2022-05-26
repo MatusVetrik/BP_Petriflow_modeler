@@ -50,7 +50,7 @@
 
 <script>
 import PanelTooltip from "@/components/UI/PanelTooltip.vue";
-import {reactToActivatedOperation} from "@/helper/helperFunctions";
+import {reactToActivatedOperation} from "../../helper/helperFunctions";
 
 export default {
   components: {PanelTooltip},

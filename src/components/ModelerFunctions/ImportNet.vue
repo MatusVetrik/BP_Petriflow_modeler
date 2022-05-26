@@ -4,7 +4,7 @@
 
 <script>
 import Konva from "konva";
-import {getConnectorPoints} from "@/helper/helperFunctions.js";
+import {getConnectorPoints} from "../../helper/helperFunctions.js";
 
 export default {
   data() {

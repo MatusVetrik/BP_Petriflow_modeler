@@ -40,7 +40,6 @@ export default {
       x: payload.event.clientX,
       y: payload.event.clientY,
       radius: 20,
-
       stroke: "black",
       strokeWidth: 2,
       draggable: false,
