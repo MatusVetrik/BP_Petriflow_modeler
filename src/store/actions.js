@@ -127,7 +127,7 @@ const addLabel = (
   const label = new Konva.Label({
     x: x + offsetX,
     y: y + offsetY,
-    opacity: 1,
+    opacity: 0,
     visible: visibility,
   });
   label.add(

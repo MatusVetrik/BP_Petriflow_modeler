@@ -96,6 +96,7 @@ export default {
     changeTokensLabel(label, text, visibility) {
       label.getText().text(text);
       label.visible(visibility);
+      label.opacity(visibility ? 1 : 0);
     },
     changeTokensClicked() {
       if (this.$store.state.clicked.type === "addTokens") return "add";

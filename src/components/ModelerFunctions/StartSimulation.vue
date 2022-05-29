@@ -76,6 +76,7 @@ export default {
           );
           labelForChange.getText().text(sourcePlace.tokens);
           labelForChange.visible(true);
+          labelForChange.opacity(1);
         }
       }
     },
@@ -96,6 +97,7 @@ export default {
               );
               labelForChange.getText().text(this.places[k].tokens);
               labelForChange.visible(true);
+              labelForChange.opacity(1);
               this.servedPlaces.push(this.places[k].id);
             }
           }

@@ -29,8 +29,14 @@ export default {
       const labelForChange = event.target.parent.children.find(
         (el) => el._id === object.labelId
       );
-      labelForChange.getText().text(object.label);
-      labelForChange.visible(true);
+      if (value) {
+        labelForChange.getText().text(object.label);
+        labelForChange.visible(true);
+        labelForChange.opacity(1);
+      } else {
+        labelForChange.visible(false);
+        labelForChange.opacity(0);
+      }
       return 0;
     },
   },

@@ -34,11 +34,13 @@ export default {
             labelForChange = labelEl;
           }
           labelForChange.visible(true);
+          labelForChange.opacity(1);
           if (value > 1) {
             arc.multiplicity = +value;
           } else {
             arc.multiplicity = 1;
             labelForChange.visible(false);
+            labelForChange.opacity(0);
           }
           labelForChange.getText().text(arc.multiplicity);
         }

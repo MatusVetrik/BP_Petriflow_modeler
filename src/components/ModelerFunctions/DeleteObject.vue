@@ -51,6 +51,7 @@ export default {
           (el) => el._id === transObj.labelId
         );
         label.visible(false);
+        label.opacity(0);
       }
     },
     deletePlace(event) {
@@ -63,12 +64,14 @@ export default {
         );
         if (labelToken) {
           labelToken.visible(false);
+          labelToken.opacity(0);
         }
         const labelTag = this.$store.state.layer.children.find(
           (el) => el._id === placeObj.labelId
         );
         if (labelTag) {
           labelTag.visible(false);
+          labelTag.opacity(0);
         }
       }
     },
@@ -81,6 +84,7 @@ export default {
           (el) => el._id === arcObj.labelId
         );
         label.visible(false);
+        label.opacity(0);
       }
     },
     deleteConnectedArcs(event) {
@@ -99,6 +103,7 @@ export default {
           );
           if (arcMultiplicity) {
             arcMultiplicity.visible(false);
+            arcMultiplicity.opacity(0);
           }
           arcToDestory.destroy();
         } else {
