@@ -4,6 +4,7 @@
       <img
         src="@/assets/icons/transition.svg"
         alt="Transition"
+        id="transition"
         @click="chooseAction('transition')"
         :style="isActivated('transition') ? activated : deactived"
       />
@@ -12,6 +13,7 @@
       <img
         src="@/assets/icons/place.svg"
         alt="Place"
+        id="place"
         @click="chooseAction('place')"
         :style="isActivated('place') ? activated : deactived"
       />
@@ -19,55 +21,64 @@
     <change-tokens @click="clearSimulationMode()" />
     <panel-tooltip text="Change Label">
       <change-label
+        id="changeLabel"
         @click="chooseAction('change')"
         :style="isActivated('change') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Arc">
       <draw-arc
+        id="arc"
         @click="chooseAction('arc')"
         :style="isActivated('arc') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Arc Weight">
       <change-weight
+        id="arcWeight"
         @click="chooseAction('arcWeight')"
         :style="isActivated('arcWeight') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Delete">
       <delete-object
+        id="delete"
         @click="chooseAction('delete')"
         :style="isActivated('delete') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Clear">
       <clear-canvas
+        id="clear"
         @click="chooseAction('clear')"
         :style="isActivated('clear') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Move">
       <move-element
+        id="move"
         @click="chooseAction('move')"
         :style="isActivated('move') ? activated : deactived"
         ref="move"
       />
     </panel-tooltip>
-    <panel-tooltip text="Save XML">
+    <panel-tooltip text="Export XML">
       <save-net
+        id="export"
         @click="chooseAction('save')"
         :style="isActivated('save') ? activated : deactived"
       />
     </panel-tooltip>
-    <panel-tooltip text="Load XML">
+    <panel-tooltip text="Import XML">
       <import-net
+        id="import"
         @click="chooseAction('import')"
         :style="isActivated('import') ? activated : deactived"
       />
     </panel-tooltip>
     <panel-tooltip text="Simulation">
       <start-simulation
+        id="simulation"
         ref="simulationComponent"
         @mousedown="chooseAction('simulation')"
         @click="$refs.simulationComponent.simulationRound()"

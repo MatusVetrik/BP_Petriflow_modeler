@@ -22,22 +22,22 @@ export default {
 
 .tooltip .tooltiptext {
   visibility: hidden;
+  background: white;
   opacity: 0;
   color: #000;
-  border-radius: 2rem;
   padding: 5px;
   font-size: 50%;
   white-space: nowrap;
-
+  border-radius: 0.5rem;
   position: absolute;
   z-index: 2;
-  top: 130%;
+  top: 140%;
   transition: 0.5s;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-  opacity: 0.6;
+  opacity: 0.7;
   transform: scale(1.9);
 }
 </style>

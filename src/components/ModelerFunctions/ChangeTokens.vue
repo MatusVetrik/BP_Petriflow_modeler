@@ -4,6 +4,7 @@
       <img
         src="@/assets/icons/addtokens.svg"
         alt="Add Token"
+        id="addTokens"
         @click="chooseAction('addTokens')"
         :style="
           this.$store.state.clicked.type === 'addTokens'
@@ -19,6 +20,7 @@
       <img
         src="@/assets/icons/removetokens.svg"
         alt="Remove Token"
+        id="removeTokens"
         @click="chooseAction('removeTokens')"
         :style="
           this.$store.state.clicked.type === 'removeTokens'
@@ -30,10 +32,11 @@
         "
       />
     </panel-tooltip>
-    <panel-tooltip text="Change Marking">
+    <panel-tooltip text="Change tokens">
       <img
         src="@/assets/icons/marking.svg"
         alt="Change Marking"
+        id="changeTokens"
         @click="chooseAction('changeMarking')"
         :style="
           this.$store.state.clicked.type === 'changeMarking'
@@ -72,7 +75,9 @@ export default {
           } else if (this.changeTokensClicked() === "remove") {
             if (changingDestination.tokens > 0) changingDestination.tokens--;
           } else if (this.changeTokensClicked() === "change") {
-            const value = window.prompt("Please enter place positive marking:");
+            const value = window.prompt(
+              "Please enter positive amount of tokens:"
+            );
             if (parseInt(value)) changingDestination.tokens = parseInt(value);
           }
           const labelForChange = event.target.parent.children.find(
