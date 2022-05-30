@@ -59,10 +59,10 @@ export default {
         !arr ||
         !arr.find(
           (el) =>
-            el.x <= event.clientX + 20 &&
-            el.x >= event.clientX - 20 &&
-            el.y <= event.clientY + 20 &&
-            el.y >= event.clientY - 20
+            el.x <= event.clientX + 30 &&
+            el.x >= event.clientX - 30 &&
+            el.y <= event.clientY + 30 &&
+            el.y >= event.clientY - 30
         )
       );
     },
