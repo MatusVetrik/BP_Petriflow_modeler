@@ -3,8 +3,6 @@ describe("Vlož prechod na plátno", () => {
     cy.visit("http://localhost:8080/");
     cy.get("#transition").click();
     cy.get(".wrapper").click();
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -13,8 +11,6 @@ describe("Vlož miesto na plátno", () => {
     cy.visit("http://localhost:8080/");
     cy.get("#place").click();
     cy.get(".wrapper").click();
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -30,8 +26,6 @@ describe("Prepoj hranou miesto a prechod", () => {
     cy.get("#arc").click();
     cy.get(".wrapper").click(250, 250);
     cy.get(".wrapper").click(350, 350);
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -45,8 +39,6 @@ describe("Pridaj značku v mieste", () => {
     cy.get(".wrapper").click();
     cy.get(".wrapper").click();
     cy.get(".wrapper").click();
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -65,8 +57,6 @@ describe("Odstráň značku v mieste", () => {
     cy.get(".wrapper").click();
     cy.get(".wrapper").click();
     cy.get(".wrapper").click();
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -83,8 +73,6 @@ describe("Zmeň počet značiek v mieste", () => {
 
     cy.get("#changeTokens").click();
     cy.get(".wrapper").click();
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -101,8 +89,6 @@ describe("Zmeň label", () => {
 
     cy.get("#changeLabel").click();
     cy.get(".wrapper").click();
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -131,8 +117,6 @@ describe("Odstráň element z plátna", () => {
     cy.get(".wrapper").click(650, 250);
     cy.get(".wrapper").click(450, 150);
     cy.get(".wrapper").click(150, 450);
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -147,8 +131,6 @@ describe("Vyčisti plátno", () => {
     cy.makeSimpleNet();
     cy.get("#clear").click();
     cy.get(".wrapper").click();
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -170,8 +152,6 @@ describe("Exportuj sieť", () => {
     cy.get(".wrapper").click(450, 450);
 
     cy.get("#export").click();
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -193,8 +173,6 @@ describe("Importuj sieť", () => {
     cy.get(".wrapper").click(450, 450);
 
     cy.get("#export").click();
-
-    expect(1).to.equal(1);
   });
 });
 
@@ -211,8 +189,6 @@ describe("Vykonaj simuláciu", () => {
 
     cy.get(".wrapper").click(450, 450);
     cy.get(".wrapper").click(450, 450);
-
-    expect(1).to.equal(1);
   });
 });
 

@@ -142,20 +142,20 @@ export default {
           multiplicity: 1,
         });
       }
-      this.chcekBothDirectionsOfArrow();
+      // this.chcekBothDirectionsOfArrow();
     },
-    chcekBothDirectionsOfArrow() {
-      this.$store.state.arcs.forEach((x) => {
-        this.$store.state.arcs.forEach((y) => {
-          if (x.sourceId == y.destinationId) {
-            const arrow = this.$store.state.layer.children.find(
-              (el) => el._id == x.id
-            );
-            console.log(this.$store.state.arcs, arrow);
-          }
-        });
-      });
-    },
+    // chcekBothDirectionsOfArrow() {
+    //   this.$store.state.arcs.forEach((x) => {
+    //     this.$store.state.arcs.forEach((y) => {
+    //       if (x.sourceId == y.destinationId) {
+    //         const arrow = this.$store.state.layer.children.find(
+    //           (el) => el._id == x.id
+    //         );
+    //         console.log(this.$store.state.arcs, arrow);
+    //       }
+    //     });
+    //   });
+    // },
   },
   mounted() {
     this.$store.state.stage.on("mousedown", (event) => {
