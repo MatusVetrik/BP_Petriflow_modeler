@@ -40,21 +40,21 @@
         :style="isActivated('arcWeight') ? activated : deactived"
       />
     </panel-tooltip>
-    <panel-tooltip text="Delete">
+    <panel-tooltip text="Delete object">
       <delete-object
         id="delete"
         @click="chooseAction('delete')"
         :style="isActivated('delete') ? activated : deactived"
       />
     </panel-tooltip>
-    <panel-tooltip text="Clear">
+    <panel-tooltip text="Clear canvas">
       <clear-canvas
         id="clear"
         @click="chooseAction('clear')"
         :style="isActivated('clear') ? activated : deactived"
       />
     </panel-tooltip>
-    <panel-tooltip text="Move">
+    <panel-tooltip text="Move object">
       <move-element
         id="move"
         @click="chooseAction('move')"
