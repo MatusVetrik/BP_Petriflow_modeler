@@ -21,9 +21,9 @@ npm run lint
 ```
 
 ### Deployed modeler
-```
+
 https://petriflow-modeler.netlify.app/
-```
+
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
